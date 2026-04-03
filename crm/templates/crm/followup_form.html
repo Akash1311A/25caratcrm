@@ -1,0 +1,28 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="bw-page">
+  <div class="form-hero text-center mb-4">
+    <span class="badge rounded-pill bg-white text-dark px-3 py-2 mb-3">Follow-up plan</span>
+    <h1 class="hero-title mb-2">Schedule the perfect follow-up</h1>
+    <p class="hero-text mx-auto mb-0">Keep every customer touchpoint polished and on time so your jewelry service feels thoughtful and premium.</p>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-8">
+      <div class="card p-4 form-panel">
+        <h4 class="text-white mb-3">Add follow-up</h4>
+        <form method="post">{% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">{{ form.next_followup_date.label_tag }}{{ form.next_followup_date }}</div>
+            <div class="col-md-6">{{ form.status.label_tag }}{{ form.status }}</div>
+            <div class="col-12">{{ form.notes.label_tag }}{{ form.notes }}</div>
+          </div>
+          <div class="mt-4 text-end">
+            <button class="btn btn-outline-light" onclick="history.back(); return false;">Back</button>
+            <button type="submit" class="btn btn-light text-dark">Save follow-up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

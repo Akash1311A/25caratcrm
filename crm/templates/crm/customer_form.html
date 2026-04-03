@@ -1,0 +1,33 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="bw-page">
+  <div class="form-hero text-center mb-4">
+    <span class="badge rounded-pill bg-white text-dark px-3 py-2 mb-3">Customer profile</span>
+    <h1 class="hero-title mb-2">Create premium customer records</h1>
+    <p class="hero-text mx-auto mb-0">Capture every detail, schedule follow-ups, and build a jewelry buying experience that feels luxe and effortless.</p>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xl-8 col-lg-10">
+      <div class="card p-4 form-panel">
+        <h4 class="text-white mb-3">{% if object %}Edit customer{% else %}New customer{% endif %}</h4>
+        <form method="post">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger border-0">{{ form.non_field_errors }}</div>
+          {% endif %}
+          <div class="row g-3">
+            <div class="col-md-6">{{ form.name.label_tag }}{{ form.name }}{% if form.name.errors %}<div class="text-warning small">{{ form.name.errors|join:", " }}</div>{% endif %}</div>
+            <div class="col-md-6">{{ form.city.label_tag }}{{ form.city }}{% if form.city.errors %}<div class="text-warning small">{{ form.city.errors|join:", " }}</div>{% endif %}</div>
+            <div class="col-md-6">{{ form.phone.label_tag }}{{ form.phone }}{% if form.phone.errors %}<div class="text-warning small">{{ form.phone.errors|join:", " }}</div>{% endif %}</div>
+            <div class="col-md-6">{{ form.phone2.label_tag }}{{ form.phone2 }}{% if form.phone2.errors %}<div class="text-warning small">{{ form.phone2.errors|join:", " }}</div>{% endif %}</div>
+          </div>
+          <div class="mt-4 text-end">
+            <a class="btn btn-outline-light" href="{% url 'crm:customer_list' %}">Cancel</a>
+            <button type="submit" class="btn btn-light text-dark">Save customer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

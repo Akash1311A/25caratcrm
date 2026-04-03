@@ -1,0 +1,212 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+<div class="row gy-4">
+  <div class="col-12">
+    <div class="card p-4 crm-hero-grid crm-surface-glow">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+            <div>
+              <h2 class="mb-1 text-gold">Dashboard</h2>
+              <p class="text-muted mb-0">Fast sales insights, reminders, and quick customer entry.</p>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg">+ Add Sale</a>
+              <button class="btn btn-gold btn-lg" onclick="openModal('quickAddModal')">+ Add Customer</button>
+            </div>
+          </div>
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <span class="badge bg-white text-dark px-3 py-2">Auto follow-ups</span>
+            <span class="badge bg-white text-dark px-3 py-2">Staff tracking</span>
+            <span class="badge bg-white text-dark px-3 py-2">Live customer history</span>
+          </div>
+          <div class="mini-card mt-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <span class="label">Signed in as</span>
+              <strong>{{ user.first_name|default:"My Profile" }}</strong>
+              <div class="text-muted small">Use My Details to edit your name.</div>
+            </div>
+            <div class="text-md-end">
+              <span class="badge bg-white text-dark px-3 py-2 mb-2">{% if user.is_superuser %}Admin{% else %}Staff{% endif %}</span>
+              <div><a href="{% url 'crm:profile' %}" class="btn btn-sm btn-outline-light">View my details</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center">
+          <img src="{% static 'crm/img/brand-hero.svg' %}" alt="25 Carat CRM illustration" class="crm-hero-art img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card position-relative">
+      <h6 class="text-muted">Total customers</h6>
+      <h3>{{ total_customers }}</h3>
+      <a href="{% url 'crm:customer_list' %}" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card">
+      <h6 class="text-muted">Total sales</h6>
+      <h3>Rs. {{ total_sales|floatformat:0 }}</h3>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card position-relative">
+      <h6 class="text-muted">My customers</h6>
+      <h3>{{ my_customers_count }}</h3>
+      <a href="{% url 'crm:customer_list' %}" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card position-relative">
+      <h6 class="text-muted">My follow-ups</h6>
+      <h3>{{ my_followups_count }}</h3>
+      <a href="{% url 'crm:customer_list' %}?followup=pending" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card position-relative">
+      <h6 class="text-muted">Follow-ups done in 30 days</h6>
+      <h3>{{ completed_followups_30d }}</h3>
+      <a href="{% url 'crm:customer_list' %}?followup=completed" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="card p-3 stat-card position-relative">
+      <h6 class="text-muted">Today's follow-ups</h6>
+      <h3>{{ todays_followups.count }}</h3>
+      <a href="{% url 'crm:customer_list' %}?followup=today" class="stretched-link"></a>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card p-3">
+      <h5 class="card-title text-gold">Pending follow-ups</h5>
+      {% if overdue_followups %}
+        <div class="alert alert-danger">{{ overdue_followups.count }} overdue</div>
+      {% endif %}
+      <ul class="list-group list-group-flush">
+        {% for followup in todays_followups|slice:5 %}
+          <li class="list-group-item bg-transparent border-0 p-2">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <div>
+                <strong>{{ followup.customer.name }}</strong>
+                <div class="text-muted">{{ followup.notes|truncatechars:60 }}</div>
+              </div>
+              <div class="text-end">
+                <span class="badge bg-warning text-dark d-block mb-2">Today</span>
+                <a href="{% url 'crm:customer_detail' followup.customer.pk %}" class="btn btn-sm btn-outline-light">View</a>
+              </div>
+            </div>
+          </li>
+        {% empty %}
+          <li class="list-group-item bg-transparent border-0 text-muted">No follow-ups for today.</li>
+        {% endfor %}
+      </ul>
+      <div class="mt-3 text-end">
+        <a href="{% url 'crm:customer_list' %}?followup=today" class="btn btn-sm btn-outline-light">View all today</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card p-3">
+      <h5 class="card-title text-gold">Recent customers</h5>
+      <ul class="list-group list-group-flush">
+        {% for customer in recent_customers %}
+          <li class="list-group-item bg-transparent border-0 p-2">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong>{{ customer.name }}</strong><br>
+                <small class="text-muted">{{ customer.phone }}</small>
+              </div>
+              <a href="{% url 'crm:customer_detail' customer.pk %}" class="btn btn-sm btn-outline-light">View</a>
+            </div>
+          </li>
+        {% empty %}
+          <li class="list-group-item bg-transparent border-0 text-muted">No customers yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="card p-3">
+      <h5 class="card-title text-gold">Top customers</h5>
+      <div class="table-responsive">
+        <table class="table table-borderless text-white mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Spent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in top_customers %}
+              <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>Rs. {{ customer.total_spent|floatformat:0 }}</td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="3" class="text-muted">No purchase data yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% if user.is_superuser %}
+  <div class="col-lg-12">
+    <div class="card p-3">
+      <h5 class="card-title text-gold">Staff follow-up summary</h5>
+      <div class="table-responsive">
+        <table class="table table-borderless text-white mb-0">
+          <thead>
+            <tr>
+              <th>Staff</th>
+              <th>Follow-ups</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in staff_followup_stats %}
+              <tr>
+                <td>{{ row.assigned_to__username|default:'Unassigned' }}</td>
+                <td>{{ row.total }}</td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="2" class="text-muted">No follow-up data yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="modal fade" id="quickAddModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white border-light">
+      <div class="modal-header">
+        <h5 class="modal-title text-gold">Quick add customer</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'crm:customer_create' %}">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label">Name</label><input name="name" class="form-control" required></div>
+            <div class="col-md-6"><label class="form-label">City</label><input name="city" class="form-control" placeholder="City"></div>
+            <div class="col-md-6"><label class="form-label">Mobile</label><input name="phone" class="form-control" required></div>
+            <div class="col-md-6"><label class="form-label">Phone 2</label><input name="phone2" class="form-control" placeholder="Optional"></div>
+          </div>
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-gold">Save customer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

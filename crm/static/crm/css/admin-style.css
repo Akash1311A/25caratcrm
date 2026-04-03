@@ -1,0 +1,281 @@
+body {
+  color: #eaf2ff;
+  font-size: 1rem;
+  background:
+    radial-gradient(circle at top left, rgba(45, 127, 249, 0.12), transparent 32%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 28%),
+    linear-gradient(180deg, #07111f 0%, #0b1630 100%);
+}
+
+#header,
+#footer {
+  background: rgba(6, 12, 24, 0.96);
+  color: #eaf2ff;
+  border-color: rgba(148, 163, 184, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+#header {
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+}
+
+#header h1 a,
+#user-tools a,
+#site-name a,
+#content-main h1,
+.module caption,
+.module th {
+  color: #ffffff !important;
+}
+
+#content-main .module,
+.app-list,
+.dashboard,
+.inline-related,
+.inline-group,
+fieldset.module,
+#content-related .module {
+  background: rgba(10, 18, 34, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.14) !important;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+#content-main .module,
+.app-list,
+.dashboard {
+  padding: 0;
+}
+
+#content-main .module caption,
+#content-main .module th,
+#content-main .module td,
+#content-main .module li,
+#content-main .module p,
+#content-main .module label,
+#content-main .module a,
+fieldset.module table td,
+fieldset.module table th {
+  color: #eaf2ff !important;
+}
+
+#content-main h1 {
+  font-size: 2rem;
+}
+
+.module caption {
+  font-size: 1.05rem;
+}
+
+input,
+select,
+textarea,
+.vTextField,
+.vLargeTextField,
+.vRadioField,
+.vCheckboxField {
+  background: #f8fbff !important;
+  color: #0b1220 !important;
+  border: 1px solid rgba(148, 163, 184, 0.42) !important;
+  border-radius: 12px;
+  font-size: 1rem !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2d7ff9 !important;
+  box-shadow: 0 0 0 0.2rem rgba(45, 127, 249, 0.18) !important;
+}
+
+select option {
+  background: #ffffff !important;
+  color: #0b1220 !important;
+}
+
+button,
+.button,
+input[type="submit"],
+.default {
+  background: linear-gradient(135deg, #2d7ff9, #1d64d8) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+button:hover,
+.button:hover,
+input[type="submit"]:hover,
+.default:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(45, 127, 249, 0.22);
+}
+
+.search-form input,
+.search-form select,
+#changelist-form .search-form input,
+#changelist-form .search-form select {
+  background: #ffffff !important;
+  color: #0b1220 !important;
+}
+
+.changeform,
+.changelist-form,
+#changelist-form,
+.changeform .fieldset,
+.fieldset {
+  background: transparent !important;
+}
+
+#changelist-form .module table,
+.changeform table,
+.changeform .module table,
+.module table {
+  border-collapse: separate !important;
+  border-spacing: 0 10px !important;
+}
+
+#changelist-form .module table th,
+#changelist-form .module table td,
+.changeform table th,
+.changeform table td,
+.module table th,
+.module table td {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+  padding: 0.95rem 1rem !important;
+  color: #eaf2ff !important;
+}
+
+#changelist-form .module table tbody tr:hover,
+.changeform table tbody tr:hover,
+.module table tbody tr:hover {
+  background: rgba(45, 127, 249, 0.09) !important;
+}
+
+#changelist-form .paginator,
+.changeform .submit-row,
+.changeform .object-tools,
+.object-tools {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(148, 163, 184, 0.12) !important;
+  border-radius: 16px;
+  padding: 0.85rem 1rem !important;
+}
+
+.object-tools .addlink,
+.object-tools a,
+.changeform .object-tools a,
+#changelist-form .object-tools a,
+#changelist-form .module a {
+  color: #7db1ff !important;
+}
+
+.object-tools .addlink:hover,
+.object-tools a:hover,
+.changeform .object-tools a:hover,
+#changelist-form .module a:hover {
+  color: #ffffff !important;
+}
+
+.crm-dashboard-hero {
+  background: linear-gradient(135deg, rgba(45, 127, 249, 0.18), rgba(7, 17, 31, 0.94));
+  border: 1px solid rgba(45, 127, 249, 0.2);
+  border-radius: 24px;
+  padding: 2rem 2.25rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.crm-dashboard-hero-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.crm-dashboard-badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(45, 127, 249, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.crm-dashboard-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.02;
+  color: #ffffff;
+}
+
+.crm-dashboard-hero p {
+  margin: 1rem auto 0;
+  max-width: 760px;
+  color: rgba(234, 242, 255, 0.76);
+}
+
+.dashboard .module,
+.app-list .module,
+.module {
+  border-radius: 18px;
+}
+
+.addlink a,
+.changelink a {
+  color: #7db1ff !important;
+}
+
+.addlink a:hover,
+.changelink a:hover,
+#user-tools a:hover,
+#header .breadcrumb a:hover,
+.breadcrumbs a:hover,
+.module a:hover,
+.changeform a:hover {
+  color: #ffffff !important;
+}
+
+.card.text-decoration-none,
+.card.text-decoration-none:hover,
+.card.text-decoration-none:focus {
+  color: #ffffff !important;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card.text-decoration-none:hover {
+  transform: translateY(-2px);
+  border-color: rgba(45, 127, 249, 0.35) !important;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+}
+
+.card.text-decoration-none .text-muted {
+  color: rgba(234, 242, 255, 0.7) !important;
+}
+
+#user-tools a,
+#header .breadcrumb a,
+.breadcrumbs a,
+.module a,
+.changeform a {
+  color: rgba(234, 242, 255, 0.78) !important;
+}
+
+#footer,
+#footer a {
+  color: rgba(234, 242, 255, 0.64) !important;
+}
+
+.sidebar,
+.filter-vertical,
+#changelist-filter,
+.changeform .inline-related {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(148, 163, 184, 0.12) !important;
+  border-radius: 18px;
+}

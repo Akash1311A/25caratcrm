@@ -1,0 +1,37 @@
+<svg width="600" height="420" viewBox="0 0 600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="72" y1="18" x2="528" y2="402" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F1C33"/>
+      <stop offset="1" stop-color="#07111F"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="132" y1="92" x2="470" y2="322" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4EA2FF"/>
+      <stop offset="1" stop-color="#1D64D8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="250" y1="72" x2="382" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7C45A"/>
+      <stop offset="1" stop-color="#D99A1C"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="600" height="420" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+  <rect x="18" y="18" width="564" height="384" rx="34" fill="url(#bg)" stroke="rgba(255,255,255,0.10)"/>
+  <g opacity="0.55">
+    <circle cx="110" cy="80" r="58" fill="#2D7FF9" fill-opacity="0.14"/>
+    <circle cx="500" cy="320" r="74" fill="#2D7FF9" fill-opacity="0.11"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M300 76L395 132V244L300 300L205 244V132L300 76Z" fill="url(#blue)"/>
+    <path d="M300 110L366 148V224L300 262L234 224V148L300 110Z" fill="url(#bg)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+    <path d="M300 132L342 156V206L300 230L258 206V156L300 132Z" fill="url(#gold)" opacity="0.95"/>
+    <path d="M300 58L300 92" stroke="rgba(255,255,255,0.72)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M300 308L300 352" stroke="rgba(255,255,255,0.18)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M182 210L146 210" stroke="rgba(78,162,255,0.45)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M454 210L418 210" stroke="rgba(78,162,255,0.45)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M300 112C331 112 356 137 356 168C356 199 331 224 300 224C269 224 244 199 244 168C244 137 269 112 300 112Z" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+    <circle cx="300" cy="168" r="6" fill="#ffffff"/>
+    <path d="M256 286C275 272 284 264 300 264C316 264 325 272 344 286" stroke="rgba(255,255,255,0.8)" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="300" y="382" text-anchor="middle" fill="#EAF2FF" font-family="Arial, sans-serif" font-size="24" font-weight="700">25 Carat CRM</text>
+</svg>

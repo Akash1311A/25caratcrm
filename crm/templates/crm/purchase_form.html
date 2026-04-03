@@ -1,0 +1,39 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+<div class="bw-page">
+  <div class="form-hero text-center mb-4">
+    <span class="badge rounded-pill bg-white text-dark px-3 py-2 mb-3">Sale</span>
+    <h1 class="hero-title mb-2">Add sale details</h1>
+    <p class="hero-text mx-auto mb-0">Capture the products, amount, and sale date for this customer.</p>
+    <img src="{% static 'crm/img/brand-hero.svg' %}" alt="25 Carat CRM illustration" class="crm-hero-art img-fluid mt-3" style="max-width:260px;">
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xl-8 col-lg-10">
+      <div class="card p-4 form-panel">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Products</label>
+              <div class="product-checkbox-grid">
+                {{ form.products }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              {{ form.amount.label_tag }}{{ form.amount }}
+              {{ form.amount_range }}
+              <small class="form-text text-muted d-block mt-2">Range will update automatically as you type the amount.</small>
+            </div>
+            <div class="col-md-6">{{ form.date.label_tag }}{{ form.date }}</div>
+          </div>
+          <div class="mt-4 text-end">
+            <a class="btn btn-outline-light" href="{% url 'crm:customer_detail' customer.pk %}">Cancel</a>
+            <button type="submit" class="btn btn-light text-dark">Save sale</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

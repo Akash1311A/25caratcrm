@@ -1,0 +1,1 @@
+web: gunicorn 25caratcrm.wsgi

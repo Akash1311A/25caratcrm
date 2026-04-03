@@ -1,0 +1,107 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="bw-page">
+  <div class="row gy-4">
+    <div class="col-12">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+        <div>
+          <h2 class="text-white">{{ object.name }}</h2>
+          <p class="text-muted">{{ object.city|default:'City not set' }} - {{ object.phone }}</p>
+        </div>
+        <div class="text-end customer-actions d-flex flex-wrap gap-2 justify-content-end">
+          <a href="tel:{{ object.phone }}" class="btn btn-outline-light">Call</a>
+          {% if object.whatsapp_link %}
+            <a href="{{ object.whatsapp_link }}?text=Hello%20{{ object.name|urlencode }},%20I%20would%20like%20to%20follow%20up%20with%20you." target="_blank" class="btn btn-outline-light">WhatsApp</a>
+          {% else %}
+            <button class="btn btn-outline-light" disabled>No WhatsApp</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card p-3 mb-3">
+        <h6 class="text-gold">Customer details</h6>
+        <p><strong>Mobile / WhatsApp:</strong> {{ object.phone }}</p>
+        <p><strong>Phone 2:</strong> {{ object.phone2|default:'Not provided' }}</p>
+        <p><strong>City:</strong> {{ object.city|default:'Not provided' }}</p>
+        <p><strong>Owner:</strong> {{ object.assigned_to|default:'Unassigned' }}</p>
+        <p><strong>Joined:</strong> {{ object.created_at|date:'M d, Y' }}</p>
+        <p><strong>Spent:</strong> Rs. {{ object.total_spent|floatformat:0 }}</p>
+        <div class="d-grid gap-2 mt-3">
+          <a href="{% url 'crm:customer_edit' object.pk %}" class="btn btn-outline-light">Edit</a>
+          <a href="{% url 'crm:customer_delete' object.pk %}" class="btn btn-outline-light">Delete</a>
+        </div>
+      </div>
+      <div class="card p-3">
+        <h6 class="text-gold">Summary</h6>
+        <p><strong>Customer note</strong><br>{{ object.notes|default:'No notes' }}</p>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card p-3 mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="text-white mb-0">Purchases</h5>
+          <a href="{% url 'crm:purchase_create' object.pk %}" class="btn btn-sm btn-outline-light">Add sale</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-borderless text-white mb-0">
+            <thead>
+              <tr><th>Products</th><th>Range</th><th>Amount</th><th>Date</th><th></th></tr>
+            </thead>
+            <tbody>
+              {% for purchase in object.purchases.all %}
+                <tr>
+                  <td>{{ purchase.product_summary|default:'-' }}</td>
+                  <td>{{ purchase.amount_range_display }}</td>
+                  <td>Rs. {{ purchase.amount|floatformat:0 }}</td>
+                  <td>{{ purchase.date }}</td>
+                  <td>
+                    <a href="{% url 'crm:sale_thank_you' purchase.pk %}" class="btn btn-sm btn-outline-light me-2">Receipt</a>
+                    <a href="{% url 'crm:purchase_delete' purchase.pk %}" class="btn btn-sm btn-outline-light">Remove</a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr><td colspan="5" class="text-muted">No purchases yet.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="text-white mb-0">Follow-ups</h5>
+          <a href="{% url 'crm:followup_create' object.pk %}" class="btn btn-sm btn-outline-light">Add follow-up</a>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for followup in object.followups.all %}
+            <li class="list-group-item bg-transparent border-0 p-3 {% if followup.is_overdue %}border border-light rounded{% endif %}">
+              <div class="d-flex justify-content-between align-items-start gap-3">
+                <div>
+                  <strong>{{ followup.next_followup_date }}</strong>
+                  <div class="text-muted">{{ followup.notes|default:'No notes' }}</div>
+                  <small class="text-muted">
+                    Status: {{ followup.status }}
+                    {% if followup.status == 'Completed' and followup.completed_at %}
+                      | Completed on {{ followup.completed_at|date:'M d, Y' }}
+                    {% endif %}
+                  </small>
+                </div>
+                <div class="text-end">
+                  {% if followup.status == 'Pending' %}
+                    <form method="post" action="{% url 'crm:followup_complete' followup.pk %}">{% csrf_token %}<button class="btn btn-sm btn-outline-light">Complete</button></form>
+                  {% else %}
+                    <span class="badge bg-success text-dark mb-2">Completed</span>
+                  {% endif %}
+                  <a href="{% url 'crm:followup_delete' followup.pk %}" class="btn btn-sm btn-outline-light mt-2">Delete</a>
+                </div>
+              </div>
+            </li>
+          {% empty %}
+            <li class="list-group-item bg-transparent border-0 text-muted">No follow-ups yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

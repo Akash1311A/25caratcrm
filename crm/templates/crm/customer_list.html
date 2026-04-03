@@ -1,0 +1,61 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="bw-page">
+  <div class="row mb-4 gy-3">
+    <div class="col-md-8">
+      <h2 class="text-white">Customers</h2>
+      <p class="text-muted">Search by name, phone, city, amount, or follow-up status.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+      <a href="{% url 'crm:customer_create' %}" class="btn btn-light text-dark">+ New customer</a>
+    </div>
+  </div>
+<div class="card filter-card p-3 mb-4">
+  <form class="row g-3" method="get">
+    <div class="col-12 col-md-4"><input type="search" name="q" class="form-control" placeholder="Search name, phone, city" value="{{ request.GET.q }}"></div>
+    <div class="col-6 col-md-2">
+      <select name="amount_range" class="form-select">
+        <option value="">Amount range</option>
+        {% for value,label in amount_range_choices %}
+          <option value="{{ value }}" {% if request.GET.amount_range == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-6 col-md-2"><select name="followup" class="form-select"><option value="">Follow-up</option><option value="pending" {% if request.GET.followup == 'pending' %}selected{% endif %}>Pending</option><option value="today" {% if request.GET.followup == 'today' %}selected{% endif %}>Today</option><option value="overdue" {% if request.GET.followup == 'overdue' %}selected{% endif %}>Overdue</option><option value="completed" {% if request.GET.followup == 'completed' %}selected{% endif %}>Completed</option></select></div>
+    <div class="col-6 col-md-2"><select name="sort" class="form-select"><option value="-total_spent" {% if request.GET.sort != 'spent_asc' and request.GET.sort != 'name' %}selected{% endif %}>Amount high to low</option><option value="spent_asc" {% if request.GET.sort == 'spent_asc' %}selected{% endif %}>Amount low to high</option><option value="name" {% if request.GET.sort == 'name' %}selected{% endif %}>Name</option></select></div>
+    <div class="col-12 text-end"><button class="btn btn-outline-light">Apply</button></div>
+  </form>
+</div>
+<div class="table-responsive customer-scroll-table">
+  <table class="table table-borderless align-middle text-white mb-0">
+    <thead>
+      <tr><th>Name</th><th>Amount</th><th>Range</th><th>Phone</th><th>City</th><th>Follow-ups</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for customer in object_list %}
+      <tr>
+        <td><strong>{{ customer.name }}</strong></td>
+        <td>Rs. {{ customer.total_spent|default:0|floatformat:0 }}</td>
+        <td><span class="badge bg-white text-dark">{{ customer.latest_purchase_range_display }}</span></td>
+        <td><a href="tel:{{ customer.phone }}" class="link-light">{{ customer.phone }}</a></td>
+        <td>{{ customer.city|default:'-' }}</td>
+        <td>{% if customer.pending_followups_count %}<span class="badge bg-warning text-dark">{{ customer.pending_followups_count }} pending</span>{% else %}-{% endif %}</td>
+        <td class="text-end">
+          <a href="{% url 'crm:sell_create' %}?customer={{ customer.pk }}" class="btn btn-sm btn-outline-light me-2">Sale</a>
+          <a href="{% url 'crm:customer_detail' customer.pk %}" class="btn btn-sm btn-outline-light">Open</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7" class="text-muted">No customers found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center mt-4">
+    {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.amount_range %}&amount_range={{ request.GET.amount_range }}{% endif %}{% if request.GET.followup %}&followup={{ request.GET.followup }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Previous</a></li>{% endif %}
+    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.amount_range %}&amount_range={{ request.GET.amount_range }}{% endif %}{% if request.GET.followup %}&followup={{ request.GET.followup }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Next</a></li>{% endif %}
+  </ul>
+</nav>
+{% endblock %}

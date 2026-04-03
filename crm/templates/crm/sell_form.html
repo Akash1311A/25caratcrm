@@ -1,0 +1,188 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+<div class="bw-page">
+  <div class="row">
+    <div class="col-12">
+      <div class="card p-4 crm-hero-grid crm-surface-glow mb-4">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+              <div>
+                <h2 class="text-white">Add Sale</h2>
+                <p class="text-muted">Record a sale, select an existing customer or create a new one, and auto-schedule follow-ups.</p>
+              </div>
+              <a href="{% url 'crm:customer_list' %}" class="btn btn-outline-light">Back to customers</a>
+            </div>
+          </div>
+          <div class="col-lg-4 text-center">
+            <img src="{% static 'crm/img/brand-hero.svg' %}" alt="25 Carat CRM illustration" class="crm-hero-art img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card p-4">
+        <form method="post">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger border-0">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+          <div class="row gy-3">
+            <div class="col-12">
+              <h5 class="text-gold">Customer selection</h5>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Search customer</label>
+              <input
+                type="search"
+                id="customerSearch"
+                class="form-control mb-2"
+                placeholder="Search by name or mobile"
+                autocomplete="off"
+              >
+              <div id="customerSearchResults" class="customer-search-results mb-3"></div>
+              {% if form.customer.errors %}
+                <div class="text-warning small mb-2">{{ form.customer.errors|join:", " }}</div>
+              {% endif %}
+              <label class="form-label">Existing customer</label>
+              {{ form.customer }}
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+              <button type="button" class="btn btn-gold" onclick="toggleNewCustomer()">Add new customer details</button>
+            </div>
+          </div>
+
+          <div id="newCustomerFields" class="mt-3 d-none">
+              <div class="row gy-3">
+                <div class="col-md-6">{{ form.new_customer_name.label_tag }}{{ form.new_customer_name }}</div>
+                <div class="col-md-6">{{ form.new_customer_city.label_tag }}{{ form.new_customer_city }}</div>
+                <div class="col-md-6">{{ form.new_customer_phone.label_tag }}{{ form.new_customer_phone }}</div>
+                <div class="col-md-6">{{ form.new_customer_phone2.label_tag }}{{ form.new_customer_phone2 }}</div>
+              </div>
+            </div>
+
+          <hr class="my-4 border-secondary">
+
+          <div class="row gy-3">
+            <div class="col-12"><h5 class="text-gold">Sale details</h5></div>
+            <div class="col-12">
+              <label class="form-label">Products</label>
+              <div class="product-checkbox-grid">
+                {{ form.products }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              {{ form.amount.label_tag }}{{ form.amount }}
+              {{ form.amount_range }}
+              <small class="form-text text-muted d-block mt-2">Range will update automatically as you type the amount.</small>
+            </div>
+            <div class="col-md-6">
+              {{ form.date.label_tag }}{{ form.date }}
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-gold">Save sale</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleNewCustomer() {
+    const section = document.getElementById('newCustomerFields');
+    if (!section) return;
+    section.classList.toggle('d-none');
+  }
+  function amountToRange(value) {
+    const amount = Number(value || 0);
+    if (amount < 10000) return '5000-10000';
+    if (amount < 20000) return '10000-20000';
+    if (amount < 30000) return '20000-30000';
+    if (amount < 50000) return '30000-50000';
+    if (amount < 100000) return '50000-100000';
+    return '100000+';
+  }
+  function updateAmountRange() {
+    const amountInput = document.getElementById('id_amount');
+    const rangeInput = document.getElementById('id_amount_range');
+    if (!amountInput || !rangeInput) return;
+    const range = amountToRange(amountInput.value);
+    rangeInput.value = range;
+  }
+  function initCustomerSearch() {
+    const searchInput = document.getElementById('customerSearch');
+    const customerSelect = document.getElementById('id_customer');
+    const resultsBox = document.getElementById('customerSearchResults');
+    if (!searchInput || !customerSelect) return;
+    const options = Array.from(customerSelect.options);
+    options.forEach((option) => {
+      option.dataset.search = (option.textContent || '').toLowerCase();
+    });
+
+    function renderResults(query) {
+      if (!resultsBox) return;
+      const matches = options.filter((option) => option.value && (!query || (option.dataset.search || '').includes(query))).slice(0, 8);
+      resultsBox.innerHTML = '';
+      if (!query) {
+        return;
+      }
+      if (!matches.length) {
+        const empty = document.createElement('div');
+        empty.className = 'text-muted small px-1';
+        empty.textContent = 'No customer found.';
+        resultsBox.appendChild(empty);
+        return;
+      }
+      matches.forEach((option) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'customer-search-hit';
+        button.dataset.value = option.value;
+        button.textContent = option.textContent;
+        button.addEventListener('click', () => {
+          customerSelect.value = button.dataset.value;
+          customerSelect.dispatchEvent(new Event('change', { bubbles: true }));
+          searchInput.value = button.textContent.trim();
+          resultsBox.innerHTML = '';
+        });
+        resultsBox.appendChild(button);
+      });
+
+      const exactMatch = matches.find((option) => (option.dataset.search || '') === query);
+      if (matches.length === 1 || exactMatch) {
+        const chosen = exactMatch || matches[0];
+        customerSelect.value = chosen.value;
+      }
+    }
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      options.forEach((option) => {
+        if (!option.value) {
+          option.hidden = false;
+          return;
+        }
+        const match = !query || (option.dataset.search || '').includes(query);
+        option.hidden = !match;
+      });
+      if (customerSelect.value && customerSelect.selectedOptions[0] && customerSelect.selectedOptions[0].hidden) customerSelect.value = '';
+      renderResults(query);
+    });
+    renderResults('');
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    const amountInput = document.getElementById('id_amount');
+    if (amountInput) {
+      amountInput.addEventListener('input', updateAmountRange);
+      updateAmountRange();
+    }
+    initCustomerSearch();
+  });
+</script>
+{% endblock %}

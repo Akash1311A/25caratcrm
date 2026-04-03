@@ -1,0 +1,71 @@
+{% extends "crm/base.html" %}
+{% block content %}
+<div class="bw-page">
+  <div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10">
+      <div class="thank-you-card">
+        <div class="thank-you-badge">25 Carat</div>
+        <h1>Thank you for buying from 25 Carat</h1>
+        <p class="lead mb-4">We truly appreciate your trust. Here is your sale summary.</p>
+
+        <div class="row g-3 text-start">
+          <div class="col-md-6">
+            <div class="mini-card">
+              <span class="label">Customer</span>
+              <strong>{{ object.customer.name }}</strong>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mini-card">
+              <span class="label">Date</span>
+              <strong>{{ object.date }}</strong>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mini-card">
+              <span class="label">Products</span>
+              <strong>{{ object.product_summary|default:'-' }}</strong>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mini-card">
+              <span class="label">Amount range</span>
+              <strong>{{ object.amount_range_display }}</strong>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mini-card">
+              <span class="label">Amount</span>
+              <strong>Rs. {{ object.amount|floatformat:0 }}</strong>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mini-card">
+              <span class="label">Handled by</span>
+              <strong>{{ object.assigned_to|default:'25 Carat Team' }}</strong>
+            </div>
+          </div>
+        </div>
+
+        {% if not public_view %}
+          <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center">
+            <a href="{% url 'crm:customer_detail' object.customer.pk %}" class="btn btn-outline-light">Back to customer</a>
+            {% if object.customer.whatsapp_link %}
+              <a
+                href="{{ object.customer.whatsapp_link }}?text={{ whatsapp_share_text|urlencode }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-gold"
+              >
+                Share to WhatsApp
+              </a>
+            {% else %}
+              <button class="btn btn-gold" disabled>Share to WhatsApp</button>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

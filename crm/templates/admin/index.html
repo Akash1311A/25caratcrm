@@ -1,0 +1,83 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard crm-dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div class="crm-dashboard-hero">
+  <div class="crm-dashboard-hero-inner">
+    <span class="crm-dashboard-badge">25Carat CRM Admin</span>
+    <h1>Premium CRM control center</h1>
+    <p>One place to manage customers, purchases, follow-ups, and product collections with a polished, luxury feel.</p>
+  </div>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-sm-6">
+    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_customer_changelist' %}">
+      <h6 class="mb-1">Customers</h6>
+      <p class="text-muted mb-0">View all customer profiles.</p>
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_purchase_changelist' %}">
+      <h6 class="mb-1">Sales</h6>
+      <p class="text-muted mb-0">Check purchase history and ranges.</p>
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_followup_changelist' %}">
+      <h6 class="mb-1">Follow-ups</h6>
+      <p class="text-muted mb-0">Track staff activity and reminders.</p>
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_producttype_changelist' %}">
+      <h6 class="mb-1">Products</h6>
+      <p class="text-muted mb-0">Maintain the 25 Carat product list.</p>
+    </a>
+  </div>
+</div>
+<div id="content-main">
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% translate 'Recent actions' %}</h2>
+        <h3>{% translate 'My actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% translate 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %} changelink{% endif %}{% if entry.is_deletion %} deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}
