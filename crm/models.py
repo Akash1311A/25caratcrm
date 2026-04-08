@@ -139,13 +139,19 @@ class Customer(models.Model):
         return f"https://wa.me/{digits}" if digits else ""
 
     def latest_purchase_date(self):
+        if not self.pk:
+            return None
         latest = self.purchases.order_by("-date").first()
         return latest.date if latest else None
 
     def total_spent(self):
+        if not self.pk:
+            return 0
         return self.purchases.aggregate(models.Sum("amount"))["amount__sum"] or 0
 
     def latest_purchase_range_display(self):
+        if not self.pk:
+            return "-"
         latest = None
         for purchase in self.purchases.all():
             if latest is None or purchase.date > latest.date:
@@ -174,6 +180,8 @@ class Purchase(models.Model):
         return f"Sale for {self.customer.name}"
 
     def product_summary(self):
+        if not self.pk:
+            return ""
         return ", ".join(self.products.values_list("name", flat=True))
 
     def amount_range_display(self):
