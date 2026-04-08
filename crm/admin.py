@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
 from django.contrib.auth.models import Group, User
 from .models import Customer, FollowUp, Purchase, ProductType
 
@@ -29,12 +29,7 @@ class FollowUpInline(admin.TabularInline):
 
 @admin.register(User)
 class CustomUserAdmin(DjangoUserAdmin):
-    model = User
-    list_display = ("username", "email", "first_name", "is_staff", "is_superuser", "is_active", "last_login")
-    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
-    search_fields = ("username", "first_name", "last_name", "email")
-    ordering = ("username",)
-    filter_horizontal = ("groups", "user_permissions")
+    pass
 
 
 @admin.register(Group)
@@ -53,73 +48,37 @@ class ProductTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "city",
-        "phone",
-        "phone2",
-        "whatsapp",
-        "assigned_to",
-        "latest_purchase_date",
-    )
-    list_filter = ("assigned_to", "created_at")
-    search_fields = ("name", "phone", "phone2", "whatsapp", "city", "notes")
+    list_display = ("name", "city", "phone", "assigned_to", "created_at")
+    list_filter = ("assigned_to", "created_at", "customer_type", "price_range")
+    search_fields = ("name", "phone", "phone2", "whatsapp", "city", "notes", "address")
     date_hierarchy = "created_at"
     list_select_related = ("assigned_to",)
     list_per_page = 30
-    readonly_fields = ("created_at", "total_spent", "latest_purchase_date")
+    autocomplete_fields = ("assigned_to", "product_interest")
+    readonly_fields = ()
     inlines = (FollowUpInline,)
-    fieldsets = (
-        ("Customer details", {
-            "fields": (
-                "name",
-                "city",
-                "phone",
-                "whatsapp",
-                "phone2",
-                "assigned_to",
-            )
-        }),
-        ("Notes", {
-            "fields": ("notes",),
-            "classes": ("collapse",),
-        }),
-        ("System info", {
-            "fields": ("created_at", "latest_purchase_date", "total_spent"),
-            "classes": ("collapse",),
-        }),
-    )
 
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ("customer", "amount_range", "amount", "date", "assigned_to", "products_display")
+    list_display = ("customer", "amount", "date", "assigned_to")
     search_fields = ("customer__name", "customer__phone", "assigned_to__username", "assigned_to__email")
     list_filter = ("assigned_to", "date", "amount_range")
     date_hierarchy = "date"
     list_select_related = ("customer", "assigned_to")
     list_per_page = 30
     filter_horizontal = ("products",)
+    autocomplete_fields = ("customer", "assigned_to")
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("customer", "assigned_to").prefetch_related("products")
 
-    def products_display(self, obj):
-        return obj.product_summary() or "-"
-
-    products_display.short_description = "Products"
-
 
 @admin.register(FollowUp)
 class FollowUpAdmin(admin.ModelAdmin):
-    list_display = ("customer", "next_followup_date", "status", "completed_at", "assigned_to", "customer_phone")
+    list_display = ("customer", "next_followup_date", "status", "completed_at", "assigned_to")
     search_fields = ("customer__name", "customer__phone")
     list_filter = ("status", "completed_at", "next_followup_date", "assigned_to")
     date_hierarchy = "next_followup_date"
     list_select_related = ("customer", "assigned_to")
     list_per_page = 30
-
-    def customer_phone(self, obj):
-        return obj.customer.phone
-
-    customer_phone.short_description = "Phone"
