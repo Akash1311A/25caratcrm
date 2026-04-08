@@ -109,12 +109,16 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ("customer", "amount_range", "amount", "date", "assigned_to", "products_display")
-    search_fields = ("customer__name", "customer__phone", "products__name")
-    list_filter = ("assigned_to", "date", "amount_range", "products")
+    search_fields = ("customer__name", "customer__phone", "assigned_to__username", "assigned_to__email")
+    list_filter = ("assigned_to", "date", "amount_range")
     date_hierarchy = "date"
     list_select_related = ("customer", "assigned_to")
     list_per_page = 30
+    autocomplete_fields = ("customer", "assigned_to", "products")
     filter_horizontal = ("products",)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("customer", "assigned_to").prefetch_related("products")
 
     def products_display(self, obj):
         return obj.product_summary() or "-"
