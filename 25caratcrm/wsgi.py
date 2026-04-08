@@ -8,6 +8,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "25caratcrm.settings")
 
 
 django.setup()
+call_command("collectstatic", interactive=False, verbosity=0, clear=False)
 call_command("migrate", interactive=False, verbosity=0)
 
 application = get_wsgi_application()
