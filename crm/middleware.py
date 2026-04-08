@@ -1,7 +1,11 @@
+import logging
 import os
+import traceback
 from threading import Lock
 
 from django.core.management import call_command
+
+logger = logging.getLogger("crm")
 
 
 class EnsureMigrationsMiddleware:
@@ -26,3 +30,20 @@ class EnsureMigrationsMiddleware:
                     self.__class__._ran = True
 
         return self.get_response(request)
+
+
+class ExceptionLoggingMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        try:
+            return self.get_response(request)
+        except Exception:
+            logger.error(
+                "Unhandled exception while processing %s %s\n%s",
+                request.method,
+                request.path,
+                traceback.format_exc(),
+            )
+            raise
