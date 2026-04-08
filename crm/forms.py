@@ -21,6 +21,14 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(label="Password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
 
 
+class CustomerChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        parts = [obj.name, obj.phone]
+        if obj.city:
+            parts.append(obj.city)
+        return " • ".join(parts)
+
+
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
@@ -102,7 +110,7 @@ class PurchaseForm(forms.ModelForm):
 
 
 class SellForm(forms.Form):
-    customer = forms.ModelChoiceField(
+    customer = CustomerChoiceField(
         queryset=Customer.objects.all(),
         required=False,
         empty_label="Select existing customer",

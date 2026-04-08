@@ -1,9 +1,23 @@
 from django.contrib import admin
+from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.models import Group, User
 from .models import Customer, FollowUp, Purchase, ProductType
 
 admin.site.site_header = "25Carat CRM Administration"
 admin.site.site_title = "25Carat CRM Admin"
 admin.site.index_title = "Manage CRM Options"
+
+try:
+    admin.site.unregister(User)
+except admin.sites.NotRegistered:
+    pass
+
+try:
+    admin.site.unregister(Group)
+except admin.sites.NotRegistered:
+    pass
 
 
 class FollowUpInline(admin.TabularInline):
@@ -12,6 +26,35 @@ class FollowUpInline(admin.TabularInline):
     readonly_fields = ("next_followup_date", "status")
     fields = ("next_followup_date", "status", "notes")
     show_change_link = True
+
+
+@admin.register(User)
+class CustomUserAdmin(DjangoUserAdmin):
+    add_form = UserCreationForm
+    form = UserChangeForm
+    model = User
+    list_display = ("username", "email", "first_name", "is_staff", "is_superuser", "is_active", "last_login")
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
+    search_fields = ("username", "first_name", "last_name", "email")
+    ordering = ("username",)
+    filter_horizontal = ("groups", "user_permissions")
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name", "email")}),
+        ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
+        ("Important dates", {"fields": ("last_login", "date_joined")}),
+    )
+    add_fieldsets = (
+        (None, {
+            "classes": ("wide",),
+            "fields": ("username", "email", "first_name", "last_name", "password1", "password2", "is_staff", "is_superuser"),
+        }),
+    )
+
+
+@admin.register(Group)
+class CustomGroupAdmin(DjangoGroupAdmin):
+    pass
 
 
 @admin.register(ProductType)

@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import json
 from django.contrib import messages
 from django.core import signing
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -257,6 +258,32 @@ class SellCreateView(LoginRequiredMixin, FormView):
         if "customer" in form.fields and not self.request.user.is_superuser:
             form.fields["customer"].queryset = Customer.objects.filter(assigned_to=self.request.user).order_by("name")
         return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        customers = Customer.objects.all().select_related("assigned_to").prefetch_related("purchases")
+        if not self.request.user.is_superuser:
+            customers = customers.filter(assigned_to=self.request.user)
+        customer_cards = []
+        for customer in customers.order_by("name"):
+            latest_purchase = customer.purchases.order_by("-date").first()
+            customer_cards.append({
+                "id": customer.pk,
+                "name": customer.name,
+                "phone": customer.phone,
+                "phone2": customer.phone2,
+                "city": customer.city,
+                "whatsapp": customer.whatsapp,
+                "assigned_to": customer.assigned_to.get_username() if customer.assigned_to else "",
+                "price_range": customer.price_range,
+                "customer_type": customer.customer_type,
+                "notes": customer.notes,
+                "total_spent": float(customer.total_spent() or 0),
+                "latest_purchase_date": latest_purchase.date.isoformat() if latest_purchase else "",
+                "latest_purchase_amount": float(latest_purchase.amount) if latest_purchase else 0,
+            })
+        context["customer_search_data"] = customer_cards
+        return context
 
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):

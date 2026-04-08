@@ -30,6 +30,8 @@
               {{ form.non_field_errors }}
             </div>
           {% endif %}
+          {{ customer_search_data|json_script:"customer-search-data" }}
+
           <div class="row gy-3">
             <div class="col-12">
               <h5 class="text-gold">Customer selection</h5>
@@ -47,11 +49,23 @@
               {% if form.customer.errors %}
                 <div class="text-warning small mb-2">{{ form.customer.errors|join:", " }}</div>
               {% endif %}
-              <label class="form-label">Existing customer</label>
-              {{ form.customer }}
+              <div class="d-none">
+                {{ form.customer }}
+              </div>
             </div>
-            <div class="col-md-6 d-flex align-items-end">
-              <button type="button" class="btn btn-gold" onclick="toggleNewCustomer()">Add new customer details</button>
+            <div class="col-md-6">
+              <div class="customer-details-card">
+                <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                  <div>
+                    <h6 class="text-white mb-1">Selected customer</h6>
+                    <p class="text-muted small mb-0">Matches update as you type. Pick one result to load its full details.</p>
+                  </div>
+                  <button type="button" class="btn btn-outline-light btn-sm" onclick="toggleNewCustomer()">Add new customer details</button>
+                </div>
+                <div id="selectedCustomerCard" class="selected-customer-card">
+                  <div class="text-muted">No customer selected yet.</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -119,15 +133,57 @@
     const searchInput = document.getElementById('customerSearch');
     const customerSelect = document.getElementById('id_customer');
     const resultsBox = document.getElementById('customerSearchResults');
+    const selectedCard = document.getElementById('selectedCustomerCard');
+    const dataNode = document.getElementById('customer-search-data');
     if (!searchInput || !customerSelect) return;
+    const customerData = dataNode ? JSON.parse(dataNode.textContent || '[]') : [];
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      }[char]));
+    }
     const options = Array.from(customerSelect.options);
     options.forEach((option) => {
       option.dataset.search = (option.textContent || '').toLowerCase();
     });
 
+    function renderSelected(customerId) {
+      if (!selectedCard) return;
+      const customer = customerData.find((item) => String(item.id) === String(customerId));
+      if (!customer) {
+        selectedCard.innerHTML = '<div class="text-muted">No customer selected yet.</div>';
+        return;
+      }
+      const pieces = [];
+      if (customer.phone) pieces.push(`<div><span class="text-muted">Mobile</span><div class="fw-semibold">${escapeHtml(customer.phone)}</div></div>`);
+      if (customer.city) pieces.push(`<div><span class="text-muted">City</span><div class="fw-semibold">${escapeHtml(customer.city)}</div></div>`);
+      if (customer.whatsapp) pieces.push(`<div><span class="text-muted">WhatsApp</span><div class="fw-semibold">${escapeHtml(customer.whatsapp)}</div></div>`);
+      if (customer.price_range) pieces.push(`<div><span class="text-muted">Price range</span><div class="fw-semibold">${escapeHtml(customer.price_range)}</div></div>`);
+      if (customer.customer_type) pieces.push(`<div><span class="text-muted">Type</span><div class="fw-semibold">${escapeHtml(customer.customer_type)}</div></div>`);
+      if (customer.latest_purchase_date) pieces.push(`<div><span class="text-muted">Latest purchase</span><div class="fw-semibold">${escapeHtml(customer.latest_purchase_date)}</div></div>`);
+      if (customer.total_spent) pieces.push(`<div><span class="text-muted">Total spent</span><div class="fw-semibold">Rs. ${Math.round(customer.total_spent)}</div></div>`);
+      if (customer.assigned_to) pieces.push(`<div><span class="text-muted">Assigned to</span><div class="fw-semibold">${escapeHtml(customer.assigned_to)}</div></div>`);
+      if (customer.notes) pieces.push(`<div class="col-12"><span class="text-muted">Notes</span><div class="fw-semibold">${escapeHtml(customer.notes)}</div></div>`);
+      selectedCard.innerHTML = `
+        <div class="selected-customer-name">${escapeHtml(customer.name)}</div>
+        <div class="selected-customer-meta">${escapeHtml(customer.phone)}${customer.city ? ' • ' + escapeHtml(customer.city) : ''}</div>
+        <div class="selected-customer-grid">${pieces.join('')}</div>
+      `;
+    }
+
     function renderResults(query) {
       if (!resultsBox) return;
-      const matches = options.filter((option) => option.value && (!query || (option.dataset.search || '').includes(query))).slice(0, 8);
+      const matches = customerData.filter((customer) => {
+        const text = [customer.name, customer.phone, customer.phone2, customer.city, customer.whatsapp, customer.assigned_to]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return !query || text.includes(query);
+      }).slice(0, 8);
       resultsBox.innerHTML = '';
       if (!query) {
         return;
@@ -143,37 +199,38 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'customer-search-hit';
-        button.dataset.value = option.value;
-        button.textContent = option.textContent;
+        button.dataset.value = option.id;
+        button.innerHTML = `
+          <span class="customer-hit-main">
+            <strong>${escapeHtml(option.name)}</strong>
+            <span>${escapeHtml(option.phone)}${option.city ? ' • ' + escapeHtml(option.city) : ''}</span>
+          </span>
+          <span class="customer-hit-badge">${escapeHtml(option.customer_type || 'Customer')}</span>
+        `;
         button.addEventListener('click', () => {
           customerSelect.value = button.dataset.value;
           customerSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          searchInput.value = button.textContent.trim();
+          searchInput.value = `${option.name} ${option.phone}`.trim();
           resultsBox.innerHTML = '';
+          renderSelected(button.dataset.value);
         });
         resultsBox.appendChild(button);
       });
 
-      const exactMatch = matches.find((option) => (option.dataset.search || '') === query);
+      const exactMatch = matches.find((option) => `${option.name} ${option.phone}`.toLowerCase() === query);
       if (matches.length === 1 || exactMatch) {
         const chosen = exactMatch || matches[0];
-        customerSelect.value = chosen.value;
+        customerSelect.value = chosen.id;
+        renderSelected(chosen.id);
       }
     }
 
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.trim().toLowerCase();
-      options.forEach((option) => {
-        if (!option.value) {
-          option.hidden = false;
-          return;
-        }
-        const match = !query || (option.dataset.search || '').includes(query);
-        option.hidden = !match;
-      });
-      if (customerSelect.value && customerSelect.selectedOptions[0] && customerSelect.selectedOptions[0].hidden) customerSelect.value = '';
       renderResults(query);
     });
+    customerSelect.addEventListener('change', () => renderSelected(customerSelect.value));
+    renderSelected(customerSelect.value);
     renderResults('');
   }
   document.addEventListener('DOMContentLoaded', function () {
