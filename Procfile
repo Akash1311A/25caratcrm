@@ -1,1 +1,1 @@
-web: gunicorn 25caratcrm.wsgi
+web: python manage.py migrate && gunicorn 25caratcrm.wsgi
