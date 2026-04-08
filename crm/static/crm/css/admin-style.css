@@ -402,6 +402,12 @@ body {
     linear-gradient(180deg, var(--admin-bg-0) 0%, var(--admin-bg-1) 100%);
 }
 
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 #header,
 #footer {
   background: rgba(4, 10, 20, 0.94);
@@ -432,6 +438,13 @@ body {
 
 #content {
   padding-top: 2rem;
+  overflow: visible;
+}
+
+#container,
+#content-main,
+#content-related {
+  overflow: visible;
 }
 
 .crm-admin-hero,
@@ -458,7 +471,7 @@ fieldset.module,
   gap: 1.25rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -577,7 +590,7 @@ fieldset.module,
 .inline-group,
 .inline-related,
 fieldset.module {
-  overflow: hidden;
+  overflow: visible;
 }
 
 #content-main .module caption,
