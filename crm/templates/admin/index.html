@@ -12,72 +12,89 @@
 {% block nav-sidebar %}{% endblock %}
 
 {% block content %}
-<div class="crm-dashboard-hero">
-  <div class="crm-dashboard-hero-inner">
+<section class="crm-admin-hero">
+  <div class="crm-admin-hero-copy">
     <span class="crm-dashboard-badge">25Carat CRM Admin</span>
-    <h1>Premium CRM control center</h1>
-    <p>One place to manage customers, purchases, follow-ups, and product collections with a polished, luxury feel.</p>
+    <h1>Luxury-grade control center for your CRM</h1>
+    <p>Manage customers, purchases, follow-ups, and product collections from a polished workspace built for speed, clarity, and mobile use.</p>
+    <div class="crm-admin-actions">
+      <a class="btn btn-gold" href="{% url 'admin:crm_customer_changelist' %}">Open Customers</a>
+      <a class="btn btn-outline-light" href="{% url 'admin:crm_purchase_changelist' %}">Review Sales</a>
+      <a class="btn btn-outline-light" href="{% url 'admin:crm_followup_changelist' %}">Follow-ups</a>
+    </div>
   </div>
-</div>
-<div class="row g-3 mb-4">
-  <div class="col-md-3 col-sm-6">
-    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_customer_changelist' %}">
-      <h6 class="mb-1">Customers</h6>
-      <p class="text-muted mb-0">View all customer profiles.</p>
-    </a>
+  <div class="crm-admin-hero-panel">
+    <div class="crm-admin-metric">
+      <span class="crm-admin-metric-label">Focus</span>
+      <strong>Fast daily operations</strong>
+    </div>
+    <div class="crm-admin-metric">
+      <span class="crm-admin-metric-label">Mode</span>
+      <strong>{% if user.is_superuser %}Admin{% else %}Staff{% endif %}</strong>
+    </div>
+    <div class="crm-admin-metric">
+      <span class="crm-admin-metric-label">Screen</span>
+      <strong>Desktop + Mobile</strong>
+    </div>
   </div>
-  <div class="col-md-3 col-sm-6">
-    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_purchase_changelist' %}">
-      <h6 class="mb-1">Sales</h6>
-      <p class="text-muted mb-0">Check purchase history and ranges.</p>
-    </a>
-  </div>
-  <div class="col-md-3 col-sm-6">
-    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_followup_changelist' %}">
-      <h6 class="mb-1">Follow-ups</h6>
-      <p class="text-muted mb-0">Track staff activity and reminders.</p>
-    </a>
-  </div>
-  <div class="col-md-3 col-sm-6">
-    <a class="card p-3 h-100 text-decoration-none" href="{% url 'admin:crm_producttype_changelist' %}">
-      <h6 class="mb-1">Products</h6>
-      <p class="text-muted mb-0">Maintain the 25 Carat product list.</p>
-    </a>
-  </div>
-</div>
-<div id="content-main">
+</section>
+
+<section class="crm-admin-quick-grid">
+  <a class="crm-admin-quick-card" href="{% url 'admin:crm_customer_changelist' %}">
+    <span class="crm-admin-quick-kicker">Customers</span>
+    <h6>View and edit customer records</h6>
+    <p>Search, filter, and manage profiles with fewer clicks.</p>
+  </a>
+  <a class="crm-admin-quick-card" href="{% url 'admin:crm_purchase_changelist' %}">
+    <span class="crm-admin-quick-kicker">Sales</span>
+    <h6>Track purchases and amounts</h6>
+    <p>See history, ranges, and who handled each transaction.</p>
+  </a>
+  <a class="crm-admin-quick-card" href="{% url 'admin:crm_followup_changelist' %}">
+    <span class="crm-admin-quick-kicker">Follow-ups</span>
+    <h6>Keep reminders under control</h6>
+    <p>Monitor pending work and completion status at a glance.</p>
+  </a>
+  <a class="crm-admin-quick-card" href="{% url 'admin:crm_producttype_changelist' %}">
+    <span class="crm-admin-quick-kicker">Products</span>
+    <h6>Maintain the catalog</h6>
+    <p>Keep product names and ordering clean and consistent.</p>
+  </a>
+</section>
+
+<div id="content-main" class="crm-admin-main">
   {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
 </div>
 {% endblock %}
 
 {% block sidebar %}
-<div id="content-related">
-    <div class="module" id="recent-actions-module">
-        <h2>{% translate 'Recent actions' %}</h2>
-        <h3>{% translate 'My actions' %}</h3>
-            {% load log %}
-            {% get_admin_log 10 as admin_log for_user user %}
-            {% if not admin_log %}
-            <p>{% translate 'None available' %}</p>
+<aside id="content-related" class="crm-admin-sidebar">
+  <div class="module" id="recent-actions-module">
+    <h2>{% translate 'Recent actions' %}</h2>
+    <h3>{% translate 'My actions' %}</h3>
+    {% load log %}
+    {% get_admin_log 10 as admin_log for_user user %}
+    {% if not admin_log %}
+      <p>{% translate 'None available' %}</p>
+    {% else %}
+      <ul class="actionlist">
+        {% for entry in admin_log %}
+          <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %} changelink{% endif %}{% if entry.is_deletion %} deletelink{% endif %}">
+            {% if entry.is_deletion or not entry.get_admin_url %}
+              {{ entry.object_repr }}
             {% else %}
-            <ul class="actionlist">
-            {% for entry in admin_log %}
-            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %} changelink{% endif %}{% if entry.is_deletion %} deletelink{% endif %}">
-                {% if entry.is_deletion or not entry.get_admin_url %}
-                    {{ entry.object_repr }}
-                {% else %}
-                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
-                {% endif %}
-                <br>
-                {% if entry.content_type %}
-                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
-                {% else %}
-                    <span class="mini quiet">{% translate 'Unknown content' %}</span>
-                {% endif %}
-            </li>
-            {% endfor %}
-            </ul>
+              <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
             {% endif %}
-    </div>
-</div>
+            <br>
+            {% if entry.content_type %}
+              <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+            {% else %}
+              <span class="mini quiet">{% translate 'Unknown content' %}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</aside>
 {% endblock %}

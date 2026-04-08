@@ -9,11 +9,16 @@
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
             <div>
               <h2 class="mb-1 text-gold">Dashboard</h2>
-              <p class="text-muted mb-0">Fast sales insights, reminders, and quick customer entry.</p>
+              <p class="text-muted mb-0">
+                Fast sales insights, reminders, and quick customer entry.
+                {% if not user.is_superuser %}
+                  Staff view keeps the daily work simple and focused.
+                {% endif %}
+              </p>
             </div>
-            <div class="d-flex gap-2 flex-wrap">
-              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg">+ Add Sale</a>
-              <button class="btn btn-gold btn-lg" onclick="openModal('quickAddModal')">+ Add Customer</button>
+            <div class="d-grid d-md-flex gap-2 flex-wrap w-100 w-md-auto">
+              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg flex-grow-1 flex-md-grow-0">+ Add Sale</a>
+              <button class="btn btn-gold btn-lg flex-grow-1 flex-md-grow-0" onclick="openModal('quickAddModal')">+ Add Customer</button>
             </div>
           </div>
           <div class="mt-4 d-flex flex-wrap gap-2">
@@ -33,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 text-center">
+        <div class="col-lg-4 text-center d-flex justify-content-center">
           <img src="{% static 'crm/img/brand-hero.svg' %}" alt="25 Carat CRM illustration" class="crm-hero-art img-fluid">
         </div>
       </div>
