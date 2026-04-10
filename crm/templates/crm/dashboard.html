@@ -1,6 +1,7 @@
 {% extends "crm/base.html" %}
 {% load static %}
 {% block content %}
+<div class="bw-page">
 <div class="row gy-4">
   <div class="col-12">
     <div class="card p-4 crm-hero-grid crm-surface-glow">
@@ -18,7 +19,7 @@
               </p>
             </div>
             <div class="d-flex flex-wrap gap-2">
-              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg hero-action">+ Add Sale</a>
+              <a href="{% url 'crm:sell_create' %}" class="btn btn-gold btn-lg hero-action">+ Add Sale</a>
               <button class="btn btn-gold btn-lg hero-action" onclick="openModal('quickAddModal')">+ Add Customer</button>
             </div>
           </div>
@@ -195,10 +196,10 @@
 
 <div class="modal fade" id="quickAddModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content bg-dark text-white border-light">
+    <div class="modal-content border-light">
       <div class="modal-header">
         <h5 class="modal-title text-gold">Quick add customer</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form method="post" action="{% url 'crm:customer_create' %}">
@@ -216,5 +217,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}

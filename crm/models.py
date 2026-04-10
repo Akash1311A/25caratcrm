@@ -17,6 +17,7 @@ SALE_PRODUCT_CHOICES = [
 SALE_PRODUCT_NAMES = [name for name, _label in SALE_PRODUCT_CHOICES]
 
 AMOUNT_RANGE_CHOICES = [
+    ("0-5000", "Rs. 0 - 5k"),
     ("5000-10000", "Rs. 5k - 10k"),
     ("10000-20000", "Rs. 10k - 20k"),
     ("20000-30000", "Rs. 20k - 30k"),
@@ -26,6 +27,7 @@ AMOUNT_RANGE_CHOICES = [
 ]
 
 AMOUNT_RANGE_VALUES = {
+    "0-5000": 0,
     "5000-10000": 5000,
     "10000-20000": 10000,
     "20000-30000": 20000,
@@ -39,7 +41,9 @@ def amount_to_range(amount):
     try:
         amount = float(amount)
     except (TypeError, ValueError):
-        return "5000-10000"
+        return "0-5000"
+    if amount < 5000:
+        return "0-5000"
     if amount < 10000:
         return "5000-10000"
     if amount < 20000:

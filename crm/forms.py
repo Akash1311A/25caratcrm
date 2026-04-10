@@ -82,7 +82,7 @@ class PurchaseForm(forms.ModelForm):
         model = Purchase
         fields = ["products", "amount", "amount_range", "date"]
         widgets = {
-            "amount": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Total amount", "min": "5000", "step": "1"}),
+            "amount": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Total amount", "step": "1"}),
             "amount_range": forms.HiddenInput(),
             "date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
         }
@@ -100,8 +100,8 @@ class PurchaseForm(forms.ModelForm):
         amount = self.cleaned_data.get("amount")
         if amount in (None, ""):
             raise forms.ValidationError("Please enter an amount.")
-        if amount < 5000:
-            raise forms.ValidationError("Amount must be at least 5000.")
+        if amount <= 0:
+            raise forms.ValidationError("Amount must be greater than zero.")
         return amount
 
     def clean_amount_range(self):
@@ -148,8 +148,7 @@ class SellForm(forms.Form):
     amount = forms.DecimalField(
         max_digits=12,
         decimal_places=2,
-        min_value=5000,
-        widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Total amount", "min": "5000", "step": "1"}),
+        widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Total amount", "step": "1"}),
         label="Amount",
     )
     amount_range = forms.ChoiceField(
@@ -206,8 +205,8 @@ class SellForm(forms.Form):
         amount = self.cleaned_data.get("amount")
         if amount in (None, ""):
             raise forms.ValidationError("Please enter an amount.")
-        if amount < 5000:
-            raise forms.ValidationError("Amount must be at least 5000.")
+        if amount <= 0:
+            raise forms.ValidationError("Amount must be greater than zero.")
         return amount
 
     def create_customer(self):

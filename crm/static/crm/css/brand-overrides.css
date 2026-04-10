@@ -12,30 +12,31 @@
   --brand-gold-soft: rgba(170, 135, 70, 0.10);
 }
 
-body {
+body.crm-light-body {
   background:
     radial-gradient(circle at top left, rgba(196, 27, 112, 0.045), transparent 26%),
     radial-gradient(circle at top right, rgba(170, 135, 70, 0.055), transparent 24%),
     linear-gradient(180deg, var(--brand-bg) 0%, #ffffff 100%);
   color: var(--brand-text);
+  color-scheme: light;
 }
 
-.navbar {
+body.crm-light-body .navbar {
   background: rgba(19, 25, 34, 0.98) !important;
   border-bottom: 1px solid rgba(170, 135, 70, 0.16);
 }
 
-.navbar-brand {
+body.crm-light-body .navbar-brand {
   font-family: "Space Grotesk", "Inter", sans-serif;
   letter-spacing: 0.02em;
 }
 
-.nav-link {
+body.crm-light-body .nav-link {
   color: rgba(255, 255, 255, 0.82) !important;
 }
 
-.nav-link:hover,
-.nav-link:focus {
+body.crm-light-body .nav-link:hover,
+body.crm-light-body .nav-link:focus {
   color: #ffffff !important;
 }
 
@@ -43,218 +44,299 @@ body {
   color: var(--brand-gold) !important;
 }
 
-.btn-gold,
-.btn-success,
-.btn-danger {
+body.crm-light-body .btn-gold,
+body.crm-light-body .btn-success,
+body.crm-light-body .btn-danger {
   background: linear-gradient(135deg, var(--brand-pink), var(--brand-gold)) !important;
   border-color: transparent !important;
   box-shadow: 0 10px 20px rgba(216, 27, 121, 0.14);
 }
 
-.btn-gold:hover,
-.btn-success:hover,
-.btn-danger:hover {
+body.crm-light-body .btn-gold:hover,
+body.crm-light-body .btn-success:hover,
+body.crm-light-body .btn-danger:hover {
   background: linear-gradient(135deg, #c81770, #ad8740) !important;
 }
 
-.card,
-.mini-card,
-.modal-content,
-.thank-you-card {
+body.crm-light-body .card,
+body.crm-light-body .mini-card,
+body.crm-light-body .modal-content,
+body.crm-light-body .thank-you-card,
+body.crm-light-body .filter-card,
+body.crm-light-body .form-panel,
+body.crm-light-body .customer-details-card,
+body.crm-light-body .selected-customer-card {
   background: var(--brand-surface) !important;
   border-color: var(--brand-border) !important;
   box-shadow: 0 14px 28px rgba(22, 29, 42, 0.06);
 }
 
-.bw-page .card,
-.bw-page .mini-card,
-.bw-page .modal-content,
-.bw-page .thank-you-card {
+body.crm-light-body .bw-page .card,
+body.crm-light-body .bw-page .mini-card,
+body.crm-light-body .bw-page .modal-content,
+body.crm-light-body .bw-page .thank-you-card,
+body.crm-light-body .bw-page .filter-card,
+body.crm-light-body .bw-page .form-panel,
+body.crm-light-body .bw-page .customer-details-card,
+body.crm-light-body .bw-page .selected-customer-card {
   background: var(--brand-surface) !important;
 }
 
-.crm-surface-glow {
+body.crm-light-body .crm-surface-glow {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(252, 250, 247, 0.98)) !important;
   border: 1px solid rgba(170, 135, 70, 0.10) !important;
 }
 
-.crm-dashboard-badge,
-.thank-you-badge {
+body.crm-light-body .crm-dashboard-badge,
+body.crm-light-body .thank-you-badge {
   background: rgba(196, 27, 112, 0.06) !important;
   border: 1px solid rgba(196, 27, 112, 0.12);
   color: var(--brand-pink) !important;
 }
 
-.crm-bg-orb-one {
+body.crm-light-body .crm-bg-orb-one {
   background: radial-gradient(circle, rgba(196, 27, 112, 0.05), transparent 68%);
 }
 
-.crm-bg-orb-two {
+body.crm-light-body .crm-bg-orb-two {
   background: radial-gradient(circle, rgba(170, 135, 70, 0.06), transparent 68%);
 }
 
-.crm-hero-art {
+body.crm-light-body .crm-hero-art {
   filter: drop-shadow(0 14px 20px rgba(22, 29, 42, 0.10));
 }
 
-.stat-card {
+body.crm-light-body .stat-card {
   background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%);
 }
 
-.table thead th {
+body.crm-light-body .table thead th {
   background: #f6f2ec !important;
   color: var(--brand-text) !important;
 }
 
-.table tbody tr:hover {
+body.crm-light-body .table tbody tr:hover {
   background: rgba(216, 27, 121, 0.04) !important;
 }
 
-.form-control,
-.form-select {
+body.crm-light-body .form-control,
+body.crm-light-body .form-select {
   background: #ffffff !important;
   border-color: rgba(32, 41, 57, 0.14) !important;
+  color: var(--brand-text) !important;
 }
 
-.form-control:focus,
-.form-select:focus {
+body.crm-light-body .form-control:focus,
+body.crm-light-body .form-select:focus {
   border-color: var(--brand-pink) !important;
   box-shadow: 0 0 0 0.18rem rgba(216, 27, 121, 0.10) !important;
 }
 
-.alert-primary,
-.alert-success,
-.alert-danger,
-.alert-warning,
-.alert-info {
+body.crm-light-body .alert-primary,
+body.crm-light-body .alert-success,
+body.crm-light-body .alert-danger,
+body.crm-light-body .alert-warning,
+body.crm-light-body .alert-info {
   background: rgba(216, 27, 121, 0.06) !important;
   border-color: rgba(216, 27, 121, 0.16) !important;
   color: var(--brand-text) !important;
 }
 
-.text-muted {
+body.crm-light-body .text-muted {
   color: var(--brand-muted) !important;
 }
 
 /* Override the old dark page rules so the new light layout stays readable. */
-.bw-page .text-gold,
-.bw-page h1,
-.bw-page h2,
-.bw-page h3,
-.bw-page h4,
-.bw-page h5,
-.bw-page h6,
-.bw-page strong,
-.bw-page .table th,
-.bw-page .table td,
-.bw-page .list-group-item,
-.bw-page .page-link {
+body.crm-light-body .bw-page .text-gold,
+body.crm-light-body .bw-page h1,
+body.crm-light-body .bw-page h2,
+body.crm-light-body .bw-page h3,
+body.crm-light-body .bw-page h4,
+body.crm-light-body .bw-page h5,
+body.crm-light-body .bw-page h6,
+body.crm-light-body .bw-page strong,
+body.crm-light-body .bw-page .table th,
+body.crm-light-body .bw-page .table td,
+body.crm-light-body .bw-page .list-group-item,
+body.crm-light-body .bw-page .page-link,
+body.crm-light-body .text-white,
+body.crm-light-body .link-light {
   color: var(--brand-text) !important;
 }
 
-.bw-page .text-muted {
+body.crm-light-body .bw-page .text-muted {
   color: var(--brand-muted) !important;
 }
 
-.bw-page .btn-outline-light,
-.bw-page .btn-light {
+body.crm-light-body .bw-page .btn-outline-light,
+body.crm-light-body .bw-page .btn-light,
+body.crm-light-body .btn-outline-light,
+body.crm-light-body .btn-light {
   color: var(--brand-text) !important;
   background: #ffffff !important;
   border-color: rgba(35, 43, 56, 0.16) !important;
 }
 
-.bw-page .btn-outline-light:hover,
-.bw-page .btn-light:hover {
+body.crm-light-body .bw-page .btn-outline-light:hover,
+body.crm-light-body .bw-page .btn-light:hover,
+body.crm-light-body .btn-outline-light:hover,
+body.crm-light-body .btn-light:hover {
   background: #f7f4ef !important;
   color: var(--brand-text) !important;
 }
 
-.bw-page .stat-card h6,
-.bw-page .stat-card h3 {
+body.crm-light-body .bw-page .stat-card h6,
+body.crm-light-body .bw-page .stat-card h3,
+body.crm-light-body .stat-card h6,
+body.crm-light-body .stat-card h3 {
   color: var(--brand-text) !important;
 }
 
-.bw-page .mini-card .label {
+body.crm-light-body .bw-page .mini-card .label {
   color: var(--brand-muted) !important;
 }
 
-.bw-page .mini-card strong {
+body.crm-light-body .bw-page .mini-card strong {
   color: var(--brand-text) !important;
 }
 
-.bw-page .table,
-.bw-page .table thead th,
-.bw-page .table tbody td {
+body.crm-light-body .bw-page .table,
+body.crm-light-body .bw-page .table thead th,
+body.crm-light-body .bw-page .table tbody td,
+body.crm-light-body .table,
+body.crm-light-body .table thead th,
+body.crm-light-body .table tbody td {
   background: #ffffff !important;
   color: var(--brand-text) !important;
 }
 
-.bw-page .table thead th {
+body.crm-light-body .bw-page .table thead th,
+body.crm-light-body .table thead th {
   background: #f6f2ec !important;
 }
 
-.bw-page .table tbody tr:hover {
+body.crm-light-body .bw-page .table tbody tr:hover,
+body.crm-light-body .table tbody tr:hover {
   background: rgba(196, 27, 112, 0.04) !important;
 }
 
-.bw-page .card,
-.bw-page .mini-card,
-.bw-page .customer-details-card,
-.bw-page .selected-customer-card,
-.bw-page .selected-customer-grid > div,
-.bw-page .profile-card,
-.bw-page .form-panel {
+body.crm-light-body .bw-page .card,
+body.crm-light-body .bw-page .mini-card,
+body.crm-light-body .bw-page .customer-details-card,
+body.crm-light-body .bw-page .selected-customer-card,
+body.crm-light-body .bw-page .selected-customer-grid > div,
+body.crm-light-body .bw-page .profile-card,
+body.crm-light-body .bw-page .form-panel,
+body.crm-light-body .card,
+body.crm-light-body .mini-card,
+body.crm-light-body .selected-customer-grid > div,
+body.crm-light-body .profile-card {
   background: #ffffff !important;
   color: var(--brand-text) !important;
   border-color: rgba(35, 43, 56, 0.10) !important;
 }
 
-.bw-page .form-hero,
-.bw-page .crm-surface-glow {
+body.crm-light-body .bw-page .form-hero,
+body.crm-light-body .bw-page .crm-surface-glow,
+body.crm-light-body .form-hero {
   background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%) !important;
   border-color: rgba(35, 43, 56, 0.10) !important;
 }
 
-.bw-page .profile-card h2,
-.bw-page .profile-card p,
-.bw-page .profile-card strong,
-.bw-page .profile-card .text-muted,
-.bw-page .form-panel h4,
-.bw-page .form-panel label,
-.bw-page .form-panel .form-label,
-.bw-page .form-panel .form-text,
-.bw-page .form-panel .text-muted,
-.bw-page .customer-details-card h6,
-.bw-page .customer-details-card p,
-.bw-page .selected-customer-card,
-.bw-page .selected-customer-meta,
-.bw-page .selected-customer-grid .text-muted {
+body.crm-light-body .bw-page .profile-card h2,
+body.crm-light-body .bw-page .profile-card p,
+body.crm-light-body .bw-page .profile-card strong,
+body.crm-light-body .bw-page .profile-card .text-muted,
+body.crm-light-body .bw-page .form-panel h4,
+body.crm-light-body .bw-page .form-panel label,
+body.crm-light-body .bw-page .form-panel .form-label,
+body.crm-light-body .bw-page .form-panel .form-text,
+body.crm-light-body .bw-page .form-panel .text-muted,
+body.crm-light-body .bw-page .customer-details-card h6,
+body.crm-light-body .bw-page .customer-details-card p,
+body.crm-light-body .bw-page .selected-customer-card,
+body.crm-light-body .bw-page .selected-customer-meta,
+body.crm-light-body .bw-page .selected-customer-grid .text-muted,
+body.crm-light-body .profile-card h2,
+body.crm-light-body .profile-card p,
+body.crm-light-body .profile-card strong,
+body.crm-light-body .profile-card .text-muted,
+body.crm-light-body .form-panel h4,
+body.crm-light-body .form-panel label,
+body.crm-light-body .form-panel .form-label,
+body.crm-light-body .form-panel .form-text,
+body.crm-light-body .form-panel .text-muted,
+body.crm-light-body .customer-details-card h6,
+body.crm-light-body .customer-details-card p,
+body.crm-light-body .selected-customer-card,
+body.crm-light-body .selected-customer-meta,
+body.crm-light-body .selected-customer-grid .text-muted {
   color: var(--brand-text) !important;
 }
 
-.bw-page .product-checkbox-grid li {
+body.crm-light-body .bw-page .product-checkbox-grid li,
+body.crm-light-body .product-checkbox-grid li {
   background: #fbfaf7 !important;
   border-color: rgba(35, 43, 56, 0.12) !important;
 }
 
-.bw-page .product-checkbox-grid li:hover {
+body.crm-light-body .bw-page .product-checkbox-grid li:hover,
+body.crm-light-body .product-checkbox-grid li:hover {
   border-color: rgba(196, 27, 112, 0.28) !important;
   box-shadow: 0 8px 18px rgba(22, 29, 42, 0.06);
 }
 
-.bw-page .product-checkbox-grid li.is-selected,
-.bw-page .product-checkbox-grid li:has(input:checked) {
+body.crm-light-body .bw-page .product-checkbox-grid li.is-selected,
+body.crm-light-body .bw-page .product-checkbox-grid li:has(input:checked),
+body.crm-light-body .product-checkbox-grid li.is-selected,
+body.crm-light-body .product-checkbox-grid li:has(input:checked) {
   background: rgba(196, 27, 112, 0.06) !important;
   border-color: rgba(196, 27, 112, 0.35) !important;
 }
 
-.bw-page .product-checkbox-grid label {
+body.crm-light-body .bw-page .product-checkbox-grid label,
+body.crm-light-body .product-checkbox-grid label {
   color: var(--brand-text) !important;
 }
 
-.bw-page .product-checkbox-grid input[type="checkbox"] {
+body.crm-light-body .bw-page .product-checkbox-grid input[type="checkbox"],
+body.crm-light-body .product-checkbox-grid input[type="checkbox"] {
   accent-color: var(--brand-pink) !important;
+}
+
+body.crm-light-body .bw-page .modal-content,
+body.crm-light-body .bw-page .modal-content .modal-header,
+body.crm-light-body .bw-page .modal-content .modal-body,
+body.crm-light-body .modal-content,
+body.crm-light-body .modal-content .modal-header,
+body.crm-light-body .modal-content .modal-body {
+  background: #ffffff !important;
+  color: var(--brand-text) !important;
+}
+
+body.crm-light-body .bw-page .modal-content .modal-title,
+body.crm-light-body .bw-page .modal-content .form-label,
+body.crm-light-body .bw-page .modal-content label,
+body.crm-light-body .bw-page .modal-content .text-muted,
+body.crm-light-body .bw-page .modal-content .text-white,
+body.crm-light-body .modal-content .modal-title,
+body.crm-light-body .modal-content .form-label,
+body.crm-light-body .modal-content label,
+body.crm-light-body .modal-content .text-muted,
+body.crm-light-body .modal-content .text-white {
+  color: var(--brand-text) !important;
+}
+
+body.crm-light-body .bw-page .modal-content .btn-close,
+body.crm-light-body .modal-content .btn-close {
+  filter: none !important;
+  opacity: 0.65;
+}
+
+body.crm-light-body .bw-page .modal-content .btn-close:hover,
+body.crm-light-body .modal-content .btn-close:hover {
+  opacity: 1;
 }
 
 .hero-action {
@@ -263,12 +345,12 @@ body {
   padding-inline: 1.5rem;
 }
 
-.hero-action.btn-outline-light {
+body.crm-light-body .hero-action.btn-outline-light {
   background: #ffffff !important;
   color: var(--brand-text) !important;
   border-color: rgba(35, 43, 56, 0.16) !important;
 }
 
-.hero-action.btn-outline-light:hover {
+body.crm-light-body .hero-action.btn-outline-light:hover {
   background: #f7f4ef !important;
 }
