@@ -1,18 +1,21 @@
+/* Manual admin palette. Edit only these tokens if you want a new theme. */
 :root {
-  --admin-accent: #db167e;
+  --admin-accent: #d81b79;
   --admin-accent-strong: #b81268;
-  --admin-gold: #c8a15a;
+  --admin-gold: #b9934a;
+  --admin-bg-soft: #faf7f2;
 }
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(219, 22, 126, 0.14), transparent 32%),
-    radial-gradient(circle at top right, rgba(200, 161, 90, 0.08), transparent 26%),
-    linear-gradient(180deg, #050b15 0%, #0a1325 100%);
+    radial-gradient(circle at top left, rgba(216, 27, 121, 0.05), transparent 28%),
+    radial-gradient(circle at top right, rgba(185, 147, 74, 0.06), transparent 24%),
+    linear-gradient(180deg, #f5f1ec 0%, #ffffff 100%);
 }
 
 #header {
-  border-bottom: 1px solid rgba(200, 161, 90, 0.18);
+  background: rgba(19, 25, 34, 0.98);
+  border-bottom: 1px solid rgba(185, 147, 74, 0.18);
 }
 
 .crm-admin-hero {
@@ -21,21 +24,41 @@ body {
 }
 
 .crm-admin-hero::before {
-  background: radial-gradient(circle, rgba(219, 22, 126, 0.18), transparent 68%);
+  background: radial-gradient(circle, rgba(216, 27, 121, 0.08), transparent 68%);
 }
 
 .crm-dashboard-badge {
-  background: linear-gradient(135deg, rgba(219, 22, 126, 0.22), rgba(200, 161, 90, 0.18)) !important;
+  background: rgba(216, 27, 121, 0.08) !important;
+  border: 1px solid rgba(216, 27, 121, 0.14);
+  color: var(--admin-accent) !important;
 }
 
 .crm-admin-quick-card:hover {
-  border-color: rgba(219, 22, 126, 0.38) !important;
+  border-color: rgba(216, 27, 121, 0.24) !important;
 }
 
 .btn-gold {
   background: linear-gradient(135deg, var(--admin-accent), var(--admin-gold)) !important;
+  box-shadow: 0 10px 20px rgba(216, 27, 121, 0.14);
 }
 
 .btn-outline-light {
-  border-color: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(19, 25, 34, 0.12) !important;
+  color: #1b2430 !important;
+  background: rgba(255, 255, 255, 0.76) !important;
+}
+
+.btn-outline-light:hover {
+  background: #ffffff !important;
+  color: #1b2430 !important;
+}
+
+.module,
+.crm-admin-hero,
+.crm-admin-quick-card,
+.app-list,
+.inline-group,
+.inline-related,
+fieldset.module {
+  box-shadow: 0 16px 34px rgba(22, 29, 42, 0.08);
 }
