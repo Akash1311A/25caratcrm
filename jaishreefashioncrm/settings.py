@@ -5,13 +5,23 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-25carat-secret")
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-jaishreefashion-secret")
 DEBUG = os.environ.get("DEBUG", "False").lower() in {"1", "true", "yes", "on"}
 
 allowed_hosts = os.environ.get("ALLOWED_HOSTS", "*")
 ALLOWED_HOSTS = [host.strip() for host in allowed_hosts.split(",") if host.strip()]
 if not ALLOWED_HOSTS:
     ALLOWED_HOSTS = ["*"]
+
+csrf_trusted_origins = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+if csrf_trusted_origins.strip():
+    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_trusted_origins.split(",") if origin.strip()]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{host}"
+        for host in ALLOWED_HOSTS
+        if host and host != "*"
+    ]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -35,7 +45,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "25caratcrm.urls"
+ROOT_URLCONF = "jaishreefashioncrm.urls"
 
 TEMPLATES = [
     {
@@ -53,7 +63,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "25caratcrm.wsgi.application"
+WSGI_APPLICATION = "jaishreefashioncrm.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -61,6 +71,7 @@ DATABASES = {
         conn_max_age=600,
     )
 }
+DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,6 +108,14 @@ STORAGES = {
 }
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_PRELOAD = not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
 
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"

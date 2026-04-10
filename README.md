@@ -1,4 +1,4 @@
-# 25Carat CRM
+# Jai shree Fashion CRM
 
 Premium mobile-friendly CRM for jewelry sales, built with Django.
 
@@ -21,8 +21,8 @@ Premium mobile-friendly CRM for jewelry sales, built with Django.
 
 3. Open `http://127.0.0.1:8000/` and log in with:
 
-   - Email: `admin@25carat.com`
-   - Password: `25Carat@123`
+   - Email: `admin@jaishreefashion.com`
+   - Password: `JaiShreeFashion@123`
 
 ## Render Deploy
 
@@ -31,7 +31,7 @@ This repo includes a `render.yaml` blueprint for Render.
 1. Create a new Blueprint in Render from this repository.
 2. Let Render create the PostgreSQL database and inject `DATABASE_URL`.
 3. Deploy the service once so `python manage.py migrate --noinput` runs before the app starts.
-4. Use the service URL `https://two5caratcrm.onrender.com/`.
+4. Use the service URL `https://jaishreefashioncrm.onrender.com/`.
 
 ## Features
 

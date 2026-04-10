@@ -33,5 +33,5 @@
     <circle cx="300" cy="168" r="6" fill="#ffffff"/>
     <path d="M256 286C275 272 284 264 300 264C316 264 325 272 344 286" stroke="rgba(255,255,255,0.8)" stroke-width="4" stroke-linecap="round"/>
   </g>
-  <text x="300" y="382" text-anchor="middle" fill="#EAF2FF" font-family="Arial, sans-serif" font-size="24" font-weight="700">25 Carat CRM</text>
+  <text x="300" y="382" text-anchor="middle" fill="#EAF2FF" font-family="Arial, sans-serif" font-size="24" font-weight="700">Jai shree Fashion CRM</text>
 </svg>

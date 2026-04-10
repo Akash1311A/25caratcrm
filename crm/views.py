@@ -437,7 +437,7 @@ class SaleThankYouView(LoginRequiredMixin, DetailView):
             reverse("crm:sale_thank_you_public", kwargs={"pk": self.object.pk, "token": share_token})
         )
         context["whatsapp_share_text"] = (
-            f"Hi {self.object.customer.name}, here is your 25 Carat thank you card: "
+            f"Hi {self.object.customer.name}, here is your Jai shree Fashion thank you card: "
             f"{context['thank_you_share_url']}"
         )
         return context

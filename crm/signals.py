@@ -9,9 +9,9 @@ from .models import ProductType, SALE_PRODUCT_NAMES
 def create_default_admin(sender, **kwargs):
     if sender.name == "django.contrib.auth":
         User = get_user_model()
-        email = "admin@25carat.com"
+        email = "admin@jaishreefashion.com"
         if not User.objects.filter(email=email).exists():
-            User.objects.create_superuser(username=email, email=email, password="25Carat@123")
+            User.objects.create_superuser(username=email, email=email, password="JaiShreeFashion@123")
 
 
 @receiver(post_migrate)
