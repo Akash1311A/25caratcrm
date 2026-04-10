@@ -136,3 +136,64 @@ body {
 .text-muted {
   color: var(--brand-muted) !important;
 }
+
+/* Override the old dark page rules so the new light layout stays readable. */
+.bw-page .text-gold,
+.bw-page h1,
+.bw-page h2,
+.bw-page h3,
+.bw-page h4,
+.bw-page h5,
+.bw-page h6,
+.bw-page strong,
+.bw-page .table th,
+.bw-page .table td,
+.bw-page .list-group-item,
+.bw-page .page-link {
+  color: var(--brand-text) !important;
+}
+
+.bw-page .text-muted {
+  color: var(--brand-muted) !important;
+}
+
+.bw-page .btn-outline-light,
+.bw-page .btn-light {
+  color: var(--brand-text) !important;
+  background: #ffffff !important;
+  border-color: rgba(35, 43, 56, 0.16) !important;
+}
+
+.bw-page .btn-outline-light:hover,
+.bw-page .btn-light:hover {
+  background: #f7f4ef !important;
+  color: var(--brand-text) !important;
+}
+
+.bw-page .stat-card h6,
+.bw-page .stat-card h3 {
+  color: var(--brand-text) !important;
+}
+
+.bw-page .mini-card .label {
+  color: var(--brand-muted) !important;
+}
+
+.bw-page .mini-card strong {
+  color: var(--brand-text) !important;
+}
+
+.bw-page .table,
+.bw-page .table thead th,
+.bw-page .table tbody td {
+  background: #ffffff !important;
+  color: var(--brand-text) !important;
+}
+
+.bw-page .table thead th {
+  background: #f6f2ec !important;
+}
+
+.bw-page .table tbody tr:hover {
+  background: rgba(196, 27, 112, 0.04) !important;
+}
