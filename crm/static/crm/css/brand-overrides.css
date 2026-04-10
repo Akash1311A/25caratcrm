@@ -197,3 +197,78 @@ body {
 .bw-page .table tbody tr:hover {
   background: rgba(196, 27, 112, 0.04) !important;
 }
+
+.bw-page .card,
+.bw-page .mini-card,
+.bw-page .customer-details-card,
+.bw-page .selected-customer-card,
+.bw-page .selected-customer-grid > div,
+.bw-page .profile-card,
+.bw-page .form-panel {
+  background: #ffffff !important;
+  color: var(--brand-text) !important;
+  border-color: rgba(35, 43, 56, 0.10) !important;
+}
+
+.bw-page .form-hero,
+.bw-page .crm-surface-glow {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%) !important;
+  border-color: rgba(35, 43, 56, 0.10) !important;
+}
+
+.bw-page .profile-card h2,
+.bw-page .profile-card p,
+.bw-page .profile-card strong,
+.bw-page .profile-card .text-muted,
+.bw-page .form-panel h4,
+.bw-page .form-panel label,
+.bw-page .form-panel .form-label,
+.bw-page .form-panel .form-text,
+.bw-page .form-panel .text-muted,
+.bw-page .customer-details-card h6,
+.bw-page .customer-details-card p,
+.bw-page .selected-customer-card,
+.bw-page .selected-customer-meta,
+.bw-page .selected-customer-grid .text-muted {
+  color: var(--brand-text) !important;
+}
+
+.bw-page .product-checkbox-grid li {
+  background: #fbfaf7 !important;
+  border-color: rgba(35, 43, 56, 0.12) !important;
+}
+
+.bw-page .product-checkbox-grid li:hover {
+  border-color: rgba(196, 27, 112, 0.28) !important;
+  box-shadow: 0 8px 18px rgba(22, 29, 42, 0.06);
+}
+
+.bw-page .product-checkbox-grid li.is-selected,
+.bw-page .product-checkbox-grid li:has(input:checked) {
+  background: rgba(196, 27, 112, 0.06) !important;
+  border-color: rgba(196, 27, 112, 0.35) !important;
+}
+
+.bw-page .product-checkbox-grid label {
+  color: var(--brand-text) !important;
+}
+
+.bw-page .product-checkbox-grid input[type="checkbox"] {
+  accent-color: var(--brand-pink) !important;
+}
+
+.hero-action {
+  min-width: 168px;
+  min-height: 54px;
+  padding-inline: 1.5rem;
+}
+
+.hero-action.btn-outline-light {
+  background: #ffffff !important;
+  color: var(--brand-text) !important;
+  border-color: rgba(35, 43, 56, 0.16) !important;
+}
+
+.hero-action.btn-outline-light:hover {
+  background: #f7f4ef !important;
+}

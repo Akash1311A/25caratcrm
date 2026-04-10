@@ -9,7 +9,7 @@
   <div class="row justify-content-center align-items-center">
     <div class="col-xl-8 col-lg-10">
       <div class="card p-4 form-panel">
-        <h4 class="text-white mb-3">{% if object %}Edit customer{% else %}New customer{% endif %}</h4>
+        <h4 class="text-gold mb-3">{% if object %}Edit customer{% else %}New customer{% endif %}</h4>
         <form method="post">
           {% csrf_token %}
           {% if form.non_field_errors %}
