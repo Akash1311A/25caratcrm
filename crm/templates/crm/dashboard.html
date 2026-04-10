@@ -6,7 +6,8 @@
     <div class="card p-4 crm-hero-grid crm-surface-glow">
       <div class="row align-items-center g-4">
         <div class="col-lg-8">
-          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+          <div class="d-flex flex-column gap-3">
+            <div class="crm-dashboard-badge align-self-start">Jai shree Fashion CRM</div>
             <div>
               <h2 class="mb-1 text-gold">Dashboard</h2>
               <p class="text-muted mb-0">
@@ -16,30 +17,32 @@
                 {% endif %}
               </p>
             </div>
-            <div class="d-grid d-md-flex gap-2 flex-wrap w-100 w-md-auto">
-              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg flex-grow-1 flex-md-grow-0">+ Add Sale</a>
-              <button class="btn btn-gold btn-lg flex-grow-1 flex-md-grow-0" onclick="openModal('quickAddModal')">+ Add Customer</button>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{% url 'crm:sell_create' %}" class="btn btn-outline-light btn-lg">+ Add Sale</a>
+              <button class="btn btn-gold btn-lg" onclick="openModal('quickAddModal')">+ Add Customer</button>
             </div>
           </div>
           <div class="mt-4 d-flex flex-wrap gap-2">
             <span class="badge bg-white text-dark px-3 py-2">Auto follow-ups</span>
-            <span class="badge bg-white text-dark px-3 py-2">Staff tracking</span>
-            <span class="badge bg-white text-dark px-3 py-2">Live customer history</span>
+            <span class="badge bg-white text-dark px-3 py-2">Smart customer history</span>
+            <span class="badge bg-white text-dark px-3 py-2">Sales oversight</span>
           </div>
           <div class="mini-card mt-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
             <div>
               <span class="label">Signed in as</span>
               <strong>{{ user.first_name|default:"My Profile" }}</strong>
-              <div class="text-muted small">Use My Details to edit your name.</div>
+              <div class="text-muted small">Use My Details to update your profile.</div>
             </div>
             <div class="text-md-end">
               <span class="badge bg-white text-dark px-3 py-2 mb-2">{% if user.is_superuser %}Admin{% else %}Staff{% endif %}</span>
-              <div><a href="{% url 'crm:profile' %}" class="btn btn-sm btn-outline-light">View my details</a></div>
+              <div><a href="{% url 'crm:profile' %}" class="btn btn-sm btn-outline-light">View details</a></div>
             </div>
           </div>
         </div>
         <div class="col-lg-4 text-center d-flex justify-content-center">
-          <img src="{% static 'crm/img/brand-hero.svg' %}" alt="Jai shree Fashion CRM illustration" class="crm-hero-art img-fluid">
+          <div class="p-2 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 shadow-sm">
+            <img src="{% static 'crm/img/brand-hero.svg' %}" alt="Jai shree Fashion CRM logo illustration" class="crm-hero-art img-fluid">
+          </div>
         </div>
       </div>
     </div>

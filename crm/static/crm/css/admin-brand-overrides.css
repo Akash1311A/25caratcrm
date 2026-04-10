@@ -1,0 +1,41 @@
+:root {
+  --admin-accent: #db167e;
+  --admin-accent-strong: #b81268;
+  --admin-gold: #c8a15a;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(219, 22, 126, 0.14), transparent 32%),
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.08), transparent 26%),
+    linear-gradient(180deg, #050b15 0%, #0a1325 100%);
+}
+
+#header {
+  border-bottom: 1px solid rgba(200, 161, 90, 0.18);
+}
+
+.crm-admin-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.crm-admin-hero::before {
+  background: radial-gradient(circle, rgba(219, 22, 126, 0.18), transparent 68%);
+}
+
+.crm-dashboard-badge {
+  background: linear-gradient(135deg, rgba(219, 22, 126, 0.22), rgba(200, 161, 90, 0.18)) !important;
+}
+
+.crm-admin-quick-card:hover {
+  border-color: rgba(219, 22, 126, 0.38) !important;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--admin-accent), var(--admin-gold)) !important;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}

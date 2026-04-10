@@ -1,0 +1,104 @@
+:root {
+  --brand-pink: #db167e;
+  --brand-pink-strong: #b81268;
+  --brand-gold: #c8a15a;
+  --brand-gold-strong: #a68042;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(219, 22, 126, 0.14), transparent 34%),
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.12), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(219, 22, 126, 0.08), transparent 26%),
+    linear-gradient(180deg, #07111f 0%, #0b1830 100%);
+}
+
+.navbar {
+  background: rgba(5, 12, 24, 0.96) !important;
+  border-bottom: 1px solid rgba(200, 161, 90, 0.22);
+}
+
+.navbar-brand {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.text-gold {
+  color: var(--brand-gold) !important;
+}
+
+.btn-gold,
+.btn-success,
+.btn-danger {
+  background: linear-gradient(135deg, var(--brand-pink), var(--brand-gold)) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 24px rgba(219, 22, 126, 0.22);
+}
+
+.btn-gold:hover,
+.btn-success:hover,
+.btn-danger:hover {
+  background: linear-gradient(135deg, var(--brand-pink-strong), var(--brand-gold-strong)) !important;
+}
+
+.card,
+.mini-card,
+.modal-content,
+.thank-you-card {
+  border-color: rgba(200, 161, 90, 0.16) !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+}
+
+.crm-surface-glow {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(219, 22, 126, 0.16), transparent 38%),
+    radial-gradient(circle at 80% 10%, rgba(200, 161, 90, 0.12), transparent 32%),
+    linear-gradient(135deg, rgba(7, 17, 31, 0.98), rgba(10, 18, 34, 0.92));
+}
+
+.crm-dashboard-badge,
+.thank-you-badge {
+  background: linear-gradient(135deg, rgba(219, 22, 126, 0.22), rgba(200, 161, 90, 0.18)) !important;
+  color: #fff !important;
+}
+
+.crm-bg-orb-one {
+  background: radial-gradient(circle, rgba(219, 22, 126, 0.24), transparent 68%);
+}
+
+.crm-bg-orb-two {
+  background: radial-gradient(circle, rgba(200, 161, 90, 0.2), transparent 68%);
+}
+
+.crm-hero-art {
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.24));
+}
+
+.stat-card {
+  background:
+    radial-gradient(circle at top right, rgba(200, 161, 90, 0.12), transparent 24%),
+    linear-gradient(135deg, rgba(219, 22, 126, 0.12), rgba(10, 18, 34, 0.92));
+}
+
+.table thead th {
+  background: rgba(13, 22, 42, 0.96) !important;
+}
+
+.table tbody tr:hover {
+  background: rgba(219, 22, 126, 0.08) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand-pink) !important;
+  box-shadow: 0 0 0 0.22rem rgba(219, 22, 126, 0.18) !important;
+}
+
+.alert-primary,
+.alert-success,
+.alert-danger,
+.alert-warning,
+.alert-info {
+  background: rgba(219, 22, 126, 0.12) !important;
+  border-color: rgba(219, 22, 126, 0.28) !important;
+}
