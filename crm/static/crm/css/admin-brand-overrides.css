@@ -1,21 +1,21 @@
 /* Manual admin palette. Edit only these tokens if you want a new theme. */
 :root {
-  --admin-accent: #d81b79;
-  --admin-accent-strong: #b81268;
-  --admin-gold: #b9934a;
+  --admin-accent: #c41b70;
+  --admin-accent-strong: #a7145d;
+  --admin-gold: #aa8746;
   --admin-bg-soft: #faf7f2;
 }
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(216, 27, 121, 0.05), transparent 28%),
-    radial-gradient(circle at top right, rgba(185, 147, 74, 0.06), transparent 24%),
+    radial-gradient(circle at top left, rgba(196, 27, 112, 0.035), transparent 28%),
+    radial-gradient(circle at top right, rgba(170, 135, 70, 0.045), transparent 24%),
     linear-gradient(180deg, #f5f1ec 0%, #ffffff 100%);
 }
 
 #header {
   background: rgba(19, 25, 34, 0.98);
-  border-bottom: 1px solid rgba(185, 147, 74, 0.18);
+  border-bottom: 1px solid rgba(170, 135, 70, 0.16);
 }
 
 .crm-admin-hero {
@@ -24,12 +24,12 @@ body {
 }
 
 .crm-admin-hero::before {
-  background: radial-gradient(circle, rgba(216, 27, 121, 0.08), transparent 68%);
+  background: radial-gradient(circle, rgba(196, 27, 112, 0.06), transparent 68%);
 }
 
 .crm-dashboard-badge {
-  background: rgba(216, 27, 121, 0.08) !important;
-  border: 1px solid rgba(216, 27, 121, 0.14);
+  background: rgba(196, 27, 112, 0.06) !important;
+  border: 1px solid rgba(196, 27, 112, 0.12);
   color: var(--admin-accent) !important;
 }
 
@@ -39,7 +39,7 @@ body {
 
 .btn-gold {
   background: linear-gradient(135deg, var(--admin-accent), var(--admin-gold)) !important;
-  box-shadow: 0 10px 20px rgba(216, 27, 121, 0.14);
+  box-shadow: 0 10px 20px rgba(196, 27, 112, 0.12);
 }
 
 .btn-outline-light {
@@ -60,5 +60,5 @@ body {
 .inline-group,
 .inline-related,
 fieldset.module {
-  box-shadow: 0 16px 34px rgba(22, 29, 42, 0.08);
+  box-shadow: 0 14px 28px rgba(22, 29, 42, 0.06);
 }

@@ -20,6 +20,9 @@ class LoginForm(AuthenticationForm):
     username = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control"}))
     password = forms.CharField(label="Password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
 
+    def clean_username(self):
+        return (self.cleaned_data.get("username") or "").strip().lower()
+
 
 class CustomerChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):

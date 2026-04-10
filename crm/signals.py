@@ -20,7 +20,7 @@ DEFAULT_STAFF_USERS = [
 def create_default_admin(sender, **kwargs):
     if sender.name == "django.contrib.auth":
         User = get_user_model()
-        email = "admin@jaishreefashion.com"
+        email = "admin@jaishreefashion.com".lower()
         if not User.objects.filter(email=email).exists():
             User.objects.create_superuser(username=email, email=email, password=DEFAULT_STAFF_PASSWORD)
 
@@ -44,9 +44,12 @@ def create_default_staff(sender, **kwargs):
             },
         )
         updated_fields = []
-        if user.username != email:
+        if (user.username or "").lower() != email:
             user.username = email
             updated_fields.append("username")
+        if (user.email or "").lower() != email:
+            user.email = email
+            updated_fields.append("email")
         if user.first_name != display_name:
             user.first_name = display_name
             updated_fields.append("first_name")
