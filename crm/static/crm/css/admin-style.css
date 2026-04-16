@@ -2,8 +2,8 @@ body {
   color: #eaf2ff;
   font-size: 1rem;
   background:
-    radial-gradient(circle at top left, rgba(45, 127, 249, 0.12), transparent 32%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 28%),
+    radial-gradient(circle at top left, rgba(4, 55, 224, 0.12), transparent 32%),
+    radial-gradient(circle at top right, rgba(236, 124, 4, 0.1), transparent 28%),
     linear-gradient(180deg, #07111f 0%, #0b1630 100%);
 }
 

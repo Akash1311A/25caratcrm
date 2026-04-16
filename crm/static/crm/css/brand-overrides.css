@@ -10,9 +10,68 @@
   --brand-pink-soft: rgba(196, 27, 112, 0.08);
   --brand-gold: #aa8746;
   --brand-gold-soft: rgba(170, 135, 70, 0.10);
+  --brand-pink-bright: #E91E63;
+  --brand-gold-bright: #D4AF37;
+}
+
+/* Premium Navbar with Logo */
+body.crm-light-body .crm-navbar-premium {
+  background: linear-gradient(135deg, rgba(19, 25, 34, 0.98) 0%, rgba(20, 28, 40, 0.99) 100%) !important;
+  border-bottom: 2px solid var(--brand-gold) !important;
+  box-shadow: 0 8px 32px rgba(196, 27, 112, 0.12), 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.crm-light-body .navbar-logo-wrapper {
+  text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+body.crm-light-body .navbar-logo-wrapper:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+body.crm-light-body .navbar-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.crm-light-body .navbar-logo-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+body.crm-light-body .navbar-brand-text {
+  background: linear-gradient(135deg, var(--brand-gold-bright) 0%, var(--brand-pink-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: "Cormorant Garamond", serif;
+  line-height: 1;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(196, 27, 112, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 4px 8px rgba(170, 135, 70, 0.3));
+  }
 }
 
 body.crm-light-body {
+  font-family: "Manrope", "Inter", sans-serif;
   background:
     radial-gradient(circle at top left, rgba(196, 27, 112, 0.045), transparent 26%),
     radial-gradient(circle at top right, rgba(170, 135, 70, 0.055), transparent 24%),
@@ -21,13 +80,15 @@ body.crm-light-body {
   color-scheme: light;
 }
 
+/* Updated Navbar Styling */
 body.crm-light-body .navbar {
-  background: rgba(19, 25, 34, 0.98) !important;
-  border-bottom: 1px solid rgba(170, 135, 70, 0.16);
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 !important;
 }
 
 body.crm-light-body .navbar-brand {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: "Cormorant Garamond", "Manrope", sans-serif;
   letter-spacing: 0.02em;
 }
 
@@ -44,20 +105,35 @@ body.crm-light-body .nav-link:focus {
   color: var(--brand-gold) !important;
 }
 
+body.crm-light-body h1,
+body.crm-light-body h2,
+body.crm-light-body h3,
+body.crm-light-body .hero-title,
+body.crm-light-body .card-title {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.01em;
+}
+
+/* Premium Button Styling */
 body.crm-light-body .btn-gold,
 body.crm-light-body .btn-success,
 body.crm-light-body .btn-danger {
-  background: linear-gradient(135deg, var(--brand-pink), var(--brand-gold)) !important;
+  background: linear-gradient(135deg, var(--brand-pink-bright) 0%, var(--brand-gold-bright) 100%) !important;
   border-color: transparent !important;
-  box-shadow: 0 10px 20px rgba(216, 27, 121, 0.14);
+  box-shadow: 0 10px 28px rgba(196, 27, 112, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-weight: 600;
 }
 
 body.crm-light-body .btn-gold:hover,
 body.crm-light-body .btn-success:hover,
 body.crm-light-body .btn-danger:hover {
-  background: linear-gradient(135deg, #c81770, #ad8740) !important;
+  background: linear-gradient(135deg, #d81b61, #c9a533) !important;
+  box-shadow: 0 14px 32px rgba(196, 27, 112, 0.28), 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
+/* Premium Card Styling */
 body.crm-light-body .card,
 body.crm-light-body .mini-card,
 body.crm-light-body .modal-content,
@@ -67,8 +143,38 @@ body.crm-light-body .form-panel,
 body.crm-light-body .customer-details-card,
 body.crm-light-body .selected-customer-card {
   background: var(--brand-surface) !important;
-  border-color: var(--brand-border) !important;
-  box-shadow: 0 14px 28px rgba(22, 29, 42, 0.06);
+  border: 1.5px solid rgba(212, 175, 55, 0.16) !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.02),
+    0 10px 24px rgba(196, 27, 112, 0.08),
+    0 0 1px rgba(170, 135, 70, 0.12) inset !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+body.crm-light-body .card::before,
+body.crm-light-body .mini-card::before,
+body.crm-light-body .modal-content::before,
+body.crm-light-body .filter-card::before,
+body.crm-light-body .form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+body.crm-light-body .card:hover,
+body.crm-light-body .mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.04),
+    0 16px 32px rgba(196, 27, 112, 0.12),
+    0 0 1px rgba(170, 135, 70, 0.16) inset !important;
 }
 
 body.crm-light-body .bw-page .card,
@@ -90,9 +196,15 @@ body.crm-light-body .crm-surface-glow {
 
 body.crm-light-body .crm-dashboard-badge,
 body.crm-light-body .thank-you-badge {
-  background: rgba(196, 27, 112, 0.06) !important;
-  border: 1px solid rgba(196, 27, 112, 0.12);
-  color: var(--brand-pink) !important;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.08), rgba(212, 175, 55, 0.04)) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.24) !important;
+  color: #c41b70 !important;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(196, 27, 112, 0.12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 body.crm-light-body .crm-bg-orb-one {
@@ -108,7 +220,16 @@ body.crm-light-body .crm-hero-art {
 }
 
 body.crm-light-body .stat-card {
-  background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%);
+  background: linear-gradient(135deg, #ffffff 0%, rgba(252, 250, 247, 0.8) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.16);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(196, 27, 112, 0.08);
+  transition: all 0.3s ease;
+}
+
+body.crm-light-body .stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(196, 27, 112, 0.14);
 }
 
 body.crm-light-body .table thead th {

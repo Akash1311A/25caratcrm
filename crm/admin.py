@@ -4,9 +4,9 @@ from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
 from django.contrib.auth.models import Group, User
 from .models import Customer, FollowUp, Purchase, ProductType
 
-admin.site.site_header = "Jai shree Fashion CRM Administration"
-admin.site.site_title = "Jai shree Fashion CRM Admin"
-admin.site.index_title = "Manage CRM Options"
+admin.site.site_header = "Jai Shree Fashion CRM Administration"
+admin.site.site_title = "Jai Shree Fashion CRM Admin"
+admin.site.index_title = "Manage Boutique CRM"
 
 try:
     admin.site.unregister(User)

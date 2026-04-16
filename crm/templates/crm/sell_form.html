@@ -1,22 +1,23 @@
 {% extends "crm/base.html" %}
 {% load static %}
+{% block title %}Jai Shree Fashion CRM | Add Sale{% endblock %}
 {% block content %}
 <div class="bw-page">
   <div class="row">
     <div class="col-12">
-    <div class="card p-4 crm-hero-grid crm-surface-glow mb-4">
+      <div class="card p-4 crm-hero-grid crm-surface-glow mb-4">
         <div class="row align-items-center g-4">
           <div class="col-lg-8">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
               <div>
                 <h2 class="text-gold">Add Sale</h2>
-                <p class="text-muted">Record a sale, select an existing customer or create a new one, and auto-schedule follow-ups.</p>
+                <p class="text-muted">Record a boutique sale, select an existing customer or create a new one, and auto-schedule follow-ups.</p>
               </div>
               <a href="{% url 'crm:customer_list' %}" class="btn btn-outline-light hero-action">Back to customers</a>
             </div>
           </div>
           <div class="col-lg-4 text-center">
-            <img src="{% static 'crm/img/brand-hero.svg' %}" alt="Jai shree Fashion CRM illustration" class="crm-hero-art img-fluid">
+            <img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion illustration" class="crm-hero-art img-fluid">
           </div>
         </div>
       </div>
@@ -70,13 +71,13 @@
           </div>
 
           <div id="newCustomerFields" class="mt-3 d-none">
-              <div class="row gy-3">
-                <div class="col-md-6">{{ form.new_customer_name.label_tag }}{{ form.new_customer_name }}</div>
-                <div class="col-md-6">{{ form.new_customer_city.label_tag }}{{ form.new_customer_city }}</div>
-                <div class="col-md-6">{{ form.new_customer_phone.label_tag }}{{ form.new_customer_phone }}</div>
-                <div class="col-md-6">{{ form.new_customer_phone2.label_tag }}{{ form.new_customer_phone2 }}</div>
-              </div>
+            <div class="row gy-3">
+              <div class="col-md-6">{{ form.new_customer_name.label_tag }}{{ form.new_customer_name }}</div>
+              <div class="col-md-6">{{ form.new_customer_city.label_tag }}{{ form.new_customer_city }}</div>
+              <div class="col-md-6">{{ form.new_customer_phone.label_tag }}{{ form.new_customer_phone }}</div>
+              <div class="col-md-6">{{ form.new_customer_phone2.label_tag }}{{ form.new_customer_phone2 }}</div>
             </div>
+          </div>
 
           <hr class="my-4 border-secondary">
 
@@ -138,6 +139,7 @@
     const dataNode = document.getElementById('customer-search-data');
     if (!searchInput || !customerSelect) return;
     const customerData = dataNode ? JSON.parse(dataNode.textContent || '[]') : [];
+
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, (char) => ({
         '&': '&amp;',
@@ -147,6 +149,7 @@
         "'": '&#39;',
       }[char]));
     }
+
     const options = Array.from(customerSelect.options);
     options.forEach((option) => {
       option.dataset.search = (option.textContent || '').toLowerCase();
@@ -171,7 +174,7 @@
       if (customer.notes) pieces.push(`<div class="col-12"><span class="text-muted">Notes</span><div class="fw-semibold">${escapeHtml(customer.notes)}</div></div>`);
       selectedCard.innerHTML = `
         <div class="selected-customer-name">${escapeHtml(customer.name)}</div>
-        <div class="selected-customer-meta">${escapeHtml(customer.phone)}${customer.city ? ' • ' + escapeHtml(customer.city) : ''}</div>
+        <div class="selected-customer-meta">${escapeHtml(customer.phone)}${customer.city ? ' | ' + escapeHtml(customer.city) : ''}</div>
         <div class="selected-customer-grid">${pieces.join('')}</div>
       `;
     }
@@ -204,7 +207,7 @@
         button.innerHTML = `
           <span class="customer-hit-main">
             <strong>${escapeHtml(option.name)}</strong>
-            <span>${escapeHtml(option.phone)}${option.city ? ' • ' + escapeHtml(option.city) : ''}</span>
+            <span>${escapeHtml(option.phone)}${option.city ? ' | ' + escapeHtml(option.city) : ''}</span>
           </span>
           <span class="customer-hit-badge">${escapeHtml(option.customer_type || 'Customer')}</span>
         `;

@@ -1,5 +1,7 @@
 {% extends "crm/base.html" %}
 {% load static %}
+{% block title %}Jai Shree Fashion CRM | Dashboard{% endblock %}
+{% block meta_description %}Track boutique sales, customer follow-ups, and daily performance inside the Jai Shree Fashion CRM dashboard.{% endblock %}
 {% block content %}
 <div class="bw-page">
 <div class="row gy-4">
@@ -8,13 +10,13 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-8">
           <div class="d-flex flex-column gap-3">
-            <div class="crm-dashboard-badge align-self-start">Jai shree Fashion CRM</div>
+            <div class="crm-dashboard-badge align-self-start">Jai Shree Fashion</div>
             <div>
               <h2 class="mb-1 text-gold">Dashboard</h2>
               <p class="text-muted mb-0">
-                Fast sales insights, reminders, and quick customer entry.
+                Boutique sales insights, customer reminders, and fast daily operations in one place.
                 {% if not user.is_superuser %}
-                  Staff view keeps the daily work simple and focused.
+                  Staff view keeps daily showroom work simple and focused.
                 {% endif %}
               </p>
             </div>
@@ -42,7 +44,7 @@
         </div>
         <div class="col-lg-4 text-center d-flex justify-content-center">
           <div class="p-2 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 shadow-sm">
-            <img src="{% static 'crm/img/brand-hero.svg' %}" alt="Jai shree Fashion CRM logo illustration" class="crm-hero-art img-fluid">
+            <img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion brand mark" class="crm-hero-art img-fluid">
           </div>
         </div>
       </div>

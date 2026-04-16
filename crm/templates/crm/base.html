@@ -4,18 +4,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jai shree Fashion CRM</title>
+  <title>{% block title %}Jai Shree Fashion CRM | Boutique Sales & Customer Management{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Jai Shree Fashion CRM helps fashion stores manage customers, sales, follow-ups, and daily boutique operations from one polished dashboard.{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}Jai Shree Fashion, fashion CRM, boutique CRM, garment store CRM, customer management, sales follow-up, retail CRM{% endblock %}">
+  <meta name="author" content="Jai Shree Fashion">
+  <meta name="robots" content="index, follow">
+  <meta property="og:site_name" content="Jai Shree Fashion CRM">
+  <meta property="og:title" content="{% block og_title %}Jai Shree Fashion CRM{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}CRM for Jai Shree Fashion to manage boutique customers, sales records, and follow-ups with a premium experience.{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{% static 'crm/img/25carat-logo.png' %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jai Shree Fashion CRM">
+  <meta name="twitter:description" content="Customer, sales, and follow-up management for Jai Shree Fashion.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'crm/css/style.css' %}" />
   <link rel="stylesheet" href="{% static 'crm/css/brand-overrides.css' %}" />
 </head>
 <body class="crm-light-body">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2 shadow-sm crm-navbar-premium">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-gold" href="{% url 'crm:dashboard' %}">Jai shree Fashion CRM</a>
+    <a class="navbar-brand navbar-logo-wrapper fw-bold" href="{% url 'crm:dashboard' %}">
+      <div class="navbar-logo-container">
+        <img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion logo" class="navbar-logo-icon" style="height:40px;">
+        <span class="navbar-brand-text">Jai Shree Fashion</span>
+      </div>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
