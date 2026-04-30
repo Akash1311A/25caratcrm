@@ -62,3 +62,27 @@ body {
 fieldset.module {
   box-shadow: 0 14px 28px rgba(22, 29, 42, 0.06);
 }
+
+.crm-admin-password-status {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: rgba(196, 27, 112, 0.08);
+  border: 1px solid rgba(196, 27, 112, 0.14);
+  color: #1b2430;
+  font-weight: 600;
+}
+
+.crm-admin-password-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 720px;
+}
+
+.crm-admin-password-field input {
+  flex: 1 1 auto;
+}
+
+.crm-admin-password-toggle {
+  white-space: nowrap;
+}

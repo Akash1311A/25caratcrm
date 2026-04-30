@@ -15,3 +15,29 @@
 <link rel="stylesheet" type="text/css" href="{% static 'crm/css/admin-style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'crm/css/admin-brand-overrides.css' %}">
 {% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('[data-password-input="true"]').forEach(function (input) {
+      if (!input.id || input.dataset.toggleAttached === "true") return;
+      input.dataset.toggleAttached = "true";
+      var wrapper = document.createElement("div");
+      wrapper.className = "crm-admin-password-field";
+      input.parentNode.insertBefore(wrapper, input);
+      wrapper.appendChild(input);
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "button crm-admin-password-toggle";
+      button.textContent = "Show";
+      button.addEventListener("click", function () {
+        var showing = input.type === "text";
+        input.type = showing ? "password" : "text";
+        button.textContent = showing ? "Show" : "Hide";
+      });
+      wrapper.appendChild(button);
+    });
+  });
+</script>
+{% endblock %}

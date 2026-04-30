@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, ReadOnlyPasswordHashField, UserChangeForm
+from django.utils.html import format_html
 from .models import Customer, ProductType, Purchase, FollowUp, SALE_PRODUCT_NAMES, AMOUNT_RANGE_CHOICES, amount_to_range
 
 
@@ -18,7 +19,11 @@ def _clean_non_future_date(value, label):
 
 class LoginForm(AuthenticationForm):
     username = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={"autofocus": True, "class": "form-control"}))
-    password = forms.CharField(label="Password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    password = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"class": "form-control", "data-password-input": "true"}),
+    )
 
     def clean_username(self):
         return (self.cleaned_data.get("username") or "").strip().lower()
@@ -236,9 +241,66 @@ class FollowUpForm(forms.ModelForm):
 
 
 class ChangePasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(label="Current password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
-    new_password1 = forms.CharField(label="New password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
-    new_password2 = forms.CharField(label="Confirm new password", strip=False, widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    old_password = forms.CharField(
+        label="Current password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"class": "form-control", "data-password-input": "true"}),
+    )
+    new_password1 = forms.CharField(
+        label="New password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"class": "form-control", "data-password-input": "true"}),
+    )
+    new_password2 = forms.CharField(
+        label="Confirm new password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"class": "form-control", "data-password-input": "true"}),
+    )
+
+
+class AdminPasswordStatusWidget(forms.Widget):
+    def render(self, name, value, attrs=None, renderer=None):
+        return format_html(
+            '<div class="crm-admin-password-status">'
+            "Password is stored securely. Existing raw password cannot be viewed."
+            "</div>"
+        )
+
+
+class AdminUserChangeForm(UserChangeForm):
+    password = ReadOnlyPasswordHashField(
+        label="Current password status",
+        help_text="",
+        widget=AdminPasswordStatusWidget(),
+    )
+    new_password = forms.CharField(
+        label="Set new password",
+        required=False,
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "vTextField",
+                "autocomplete": "new-password",
+                "placeholder": "Enter new password only if you want to change it",
+                "data-password-input": "true",
+            }
+        ),
+        help_text="Leave blank to keep the current password.",
+    )
+
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = "__all__"
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        new_password = self.cleaned_data.get("new_password")
+        if new_password:
+            user.set_password(new_password)
+        if commit:
+            user.save()
+            self.save_m2m()
+        return user
 
 
 class ProfileForm(forms.ModelForm):

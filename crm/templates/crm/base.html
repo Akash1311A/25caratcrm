@@ -64,6 +64,20 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="" crossorigin="anonymous"></script>
 <script>
+  function syncPasswordToggles() {
+    document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+      if (button.dataset.passwordToggleReady === 'true') return;
+      const targetId = button.getAttribute('data-password-toggle');
+      const input = document.getElementById(targetId);
+      if (!input) return;
+      button.dataset.passwordToggleReady = 'true';
+      button.addEventListener('click', () => {
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        button.textContent = isPassword ? 'Hide' : 'Show';
+      });
+    });
+  }
   function toggleAdvanced() {
     const section = document.getElementById('advancedFields');
     if (section) section.classList.toggle('d-none');
@@ -83,6 +97,7 @@
     });
   }
   document.addEventListener('DOMContentLoaded', syncCheckboxCards);
+  document.addEventListener('DOMContentLoaded', syncPasswordToggles);
 </script>
 </body>
 </html>

@@ -13,9 +13,9 @@ envVars:
   - key: PYTHON_VERSION
     value: "3.12.7"
   - key: ALLOWED_HOSTS
-    value: jaishreefashioncrm.onrender.com,25caratcrm.onrender.com
+    value: jaishreefashioncrm.onrender.com,25caratcrm.onrender.com,two5caratcrm.onrender.com,crm.jaishreefashions.com,jaishreefashions.com,www.jaishreefashions.com
   - key: CSRF_TRUSTED_ORIGINS
-    value: https://jaishreefashioncrm.onrender.com,https://25caratcrm.onrender.com
+    value: https://jaishreefashioncrm.onrender.com,https://25caratcrm.onrender.com,https://two5caratcrm.onrender.com,https://crm.jaishreefashions.com,https://jaishreefashions.com,https://www.jaishreefashions.com
   - key: DATABASE_URL
     fromDatabase:
       name: Jai shree-db

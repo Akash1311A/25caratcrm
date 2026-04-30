@@ -82,9 +82,12 @@ body.crm-light-body {
 
 /* Updated Navbar Styling */
 body.crm-light-body .navbar {
-  background: transparent !important;
   border-bottom: none !important;
   padding: 0 !important;
+}
+
+body.crm-light-body .crm-navbar-premium.navbar {
+  background: linear-gradient(135deg, rgba(19, 25, 34, 0.98) 0%, rgba(20, 28, 40, 0.99) 100%) !important;
 }
 
 body.crm-light-body .navbar-brand {
@@ -94,11 +97,21 @@ body.crm-light-body .navbar-brand {
 
 body.crm-light-body .nav-link {
   color: rgba(255, 255, 255, 0.82) !important;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
 }
 
 body.crm-light-body .nav-link:hover,
 body.crm-light-body .nav-link:focus {
   color: #ffffff !important;
+}
+
+body.crm-light-body .navbar-nav .nav-link {
+  padding-inline: 0.9rem;
+}
+
+body.crm-light-body .navbar-nav .nav-item .text-muted {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .text-gold {
