@@ -1,5 +1,6 @@
 {% extends "crm/base.html" %}
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 {% block title %}Jai Shree Fashion CRM | Add Sale{% endblock %}
 {% block content %}
 <div class="bw-page">
@@ -17,7 +18,7 @@
             </div>
           </div>
           <div class="col-lg-4 text-center">
-            <img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion illustration" class="crm-hero-art img-fluid">
+            <img src="{{ STATIC_PREFIX }}crm/img/25carat-logo.png" alt="Jai Shree Fashion illustration" class="crm-hero-art img-fluid">
           </div>
         </div>
       </div>

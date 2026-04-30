@@ -1,5 +1,6 @@
 {% extends "crm/base.html" %}
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 {% block title %}Jai Shree Fashion CRM | Secure Login{% endblock %}
 {% block meta_description %}Securely sign in to Jai Shree Fashion CRM to manage boutique customers, sales, and follow-ups.{% endblock %}
 {% block content %}
@@ -8,7 +9,7 @@
     <div class="card p-4 shadow-sm border-0 crm-surface-glow">
       <div class="card-body">
         <div class="text-center mb-4">
-<img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion logo" class="crm-hero-art mb-3" style="max-width:180px;">
+<img src="{{ STATIC_PREFIX }}crm/img/25carat-logo.png" alt="Jai Shree Fashion logo" class="crm-hero-art mb-3" style="max-width:180px;">
           <div class="crm-dashboard-badge mb-3">Secure sign in</div>
           <h3 class="card-title text-gold mb-2">Jai Shree Fashion</h3>
           <p class="text-muted mb-0">A polished workspace for boutique sales, loyal customers, and timely follow-ups.</p>

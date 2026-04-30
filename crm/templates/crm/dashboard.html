@@ -1,5 +1,6 @@
 {% extends "crm/base.html" %}
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 {% block title %}Jai Shree Fashion CRM | Dashboard{% endblock %}
 {% block meta_description %}Track boutique sales, customer follow-ups, and daily performance inside the Jai Shree Fashion CRM dashboard.{% endblock %}
 {% block content %}
@@ -44,7 +45,7 @@
         </div>
         <div class="col-lg-4 text-center d-flex justify-content-center">
           <div class="p-2 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10 shadow-sm">
-            <img src="{% static 'crm/img/25carat-logo.png' %}" alt="Jai Shree Fashion brand mark" class="crm-hero-art img-fluid">
+            <img src="{{ STATIC_PREFIX }}crm/img/25carat-logo.png" alt="Jai Shree Fashion brand mark" class="crm-hero-art img-fluid">
           </div>
         </div>
       </div>
