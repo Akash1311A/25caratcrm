@@ -31,6 +31,9 @@ default_allowed_hosts = [
 ]
 env_allowed_hosts = _parse_csv(os.environ.get("ALLOWED_HOSTS", ""))
 ALLOWED_HOSTS = _merge_unique(default_allowed_hosts, env_allowed_hosts)
+LOCAL_HOSTS = {"127.0.0.1", "localhost"}
+RUNNING_LOCALHOST = any(host in LOCAL_HOSTS for host in ALLOWED_HOSTS)
+IS_LOCAL_ENV = DEBUG or RUNNING_LOCALHOST
 
 default_csrf_trusted_origins = [
     f"https://{host}"
@@ -82,12 +85,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "jaishreefashioncrm.wsgi.application"
 
+database_url = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+database_config = {
+    "default": database_url,
+    "conn_max_age": 600,
+}
+if not database_url.startswith("sqlite:///"):
+    database_config["ssl_require"] = not DEBUG
+
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=not DEBUG,
-    )
+    "default": dj_database_url.config(**database_config)
 }
 DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 
@@ -118,13 +125,13 @@ STORAGES = {
 }
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = not IS_LOCAL_ENV
+SESSION_COOKIE_SECURE = not IS_LOCAL_ENV
+CSRF_COOKIE_SECURE = not IS_LOCAL_ENV
 CSRF_COOKIE_HTTPONLY = True
-SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
-SECURE_HSTS_PRELOAD = not DEBUG
+SECURE_HSTS_SECONDS = 31536000 if not IS_LOCAL_ENV else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not IS_LOCAL_ENV
+SECURE_HSTS_PRELOAD = not IS_LOCAL_ENV
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
